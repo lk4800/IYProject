@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="User">
+	<insert id="fb_insert">
+		insert into tbl_inyeon_fboard values(fb_seq.nextval,#{fb_title},#{fb_cont},0,sysdate,#{fb_img_url},#{email})
+	</insert>
+	<insert id="fb_noImgInsert">
+		insert into tbl_inyeon_fboard(fb_num,fb_title,fb_cont,fb_date,email) values(fb_seq.nextval,#{fb_title},#{fb_cont},sysdate,#{email})
+	</insert>
+	<insert id="pb_insert">
+		insert into tbl_inyeon_pboard values(pb_seq.nextval,#{pb_title},#{pb_cont},0,sysdate,#{pb_img_url},#{email})
+	</insert>
+	<insert id="pb_noImgInsert">
+		insert into tbl_inyeon_pboard(pb_num,pb_title,pb_cont,pb_date,email) values(pb_seq.nextval,#{pb_title},#{pb_cont},sysdate,#{email})
+	</insert>
+	<insert id="nb_insert">
+		insert into tbl_inyeon_nboard values(nb_seq.nextval,#{nb_title},#{nb_cont},0,sysdate,#{nb_img_url},#{email})
+	</insert>
+	<insert id="nb_noImgInsert">
+		insert into tbl_inyeon_fboard(nb_num,nb_title,nb_cont,nb_date,email) values(nb_seq.nextval,#{nb_title},#{nb_cont},sysdate,#{email})
+	</insert>
+</mapper>
+

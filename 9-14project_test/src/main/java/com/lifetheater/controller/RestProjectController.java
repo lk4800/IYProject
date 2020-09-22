@@ -1,0 +1,237 @@
+package com.lifetheater.controller;
+
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.io.FileUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.WebUtils;
+
+import com.lifetheater.service.UserService;
+import com.lifetheater.service.UserSha256;
+import com.lifetheater.vo.UserVO;
+
+@RestController
+public class RestProjectController {//ajax로 문자열을 받기위해 사용
+
+	@Autowired
+	private UserService user_Service;
+
+	@RequestMapping(value="/confirmEmail",method=RequestMethod.POST)
+	public ResponseEntity<String> confiem_email(@RequestBody UserVO user) {//이메일중복확인
+		ResponseEntity<String> entity=null;
+
+		try { 
+		String result = this.user_Service.confirmEmail(user);
+		System.out.println(result);
+		if(result == null){ 
+			entity = new ResponseEntity<String>("YES",HttpStatus.OK);
+		} else { 
+			entity = new ResponseEntity<String>("NO",HttpStatus.OK);
+			}
+
+		}catch(Exception e) { e.printStackTrace();entity = new
+				ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST); }
+
+		/* entity = new ResponseEntity<String>("YES",HttpStatus.OK); */
+		return entity;
+	}
+	
+	
+	@RequestMapping(value="/confirmPhone",method=RequestMethod.POST)
+	public ResponseEntity<String> confiem_phone(@RequestBody UserVO user) {//폰번호 중복 확인
+		ResponseEntity<String> entity=null;
+		
+		try { 
+			String result = this.user_Service.confirmPhone(user);
+			System.out.println(result);
+			if(result == null){ 
+				entity = new ResponseEntity<String>("YES",HttpStatus.OK);
+			} else { 
+				entity = new ResponseEntity<String>("NO",HttpStatus.OK);
+			}
+			
+		}catch(Exception e) { e.printStackTrace();entity = new
+				ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST); }
+		
+		/* entity = new ResponseEntity<String>("YES",HttpStatus.OK); */
+		return entity;
+	}
+	
+	
+		//로그인 요청 (사용자 정보를 세션 "login" 이름으로 담음)
+		@PostMapping("/IY_login")
+		public String login(@RequestBody UserVO uservo ,HttpSession session ,HttpServletResponse response,HttpServletRequest request) {					
+			String result=null;
+			UserVO user=user_Service.searchUser(uservo);
+			
+			//정보가 일치할시 로그인 성공
+			if(user!=null) {
+				if((user.getLoginWay()).length()==1) {
+				String user_pw = uservo.getPw();
+		 		uservo.setPw(UserSha256.encrypt(user_pw));
+				if(user.getPw().equals(uservo.getPw())) {
+					
+					session.setAttribute("login", user);
+					result="loginok";
+				}
+					
+					//자동로그인 체크시 발동
+					if(uservo.getAutologin()) {
+					/* Cookie loginCookie =new Cookie("loginCookie", session.getId()); */
+						
+						Cookie loginCookie =new Cookie("loginCookie",uservo.getEmail() );
+					loginCookie.setPath("/");
+					loginCookie.setMaxAge(60);
+					response.addCookie(loginCookie);
+					System.out.println(loginCookie.getValue());
+					System.out.println(session.getId());
+					
+					//자동로그인 유지시간을 날짜객체로 변환
+					/* Date limitDate =new Date(System.currentTimeMillis()+(1000*60 )); */
+					
+					//자동로그인 세션 정보 업데이트
+					/* service.keepLogin(session.getId(),limitDate,id.getEmail()); */
+			
+					}
+					//아이디 저장에 필요
+					if(uservo.getLoginsave()) {
+						Cookie cookiesave=WebUtils.getCookie(request,"loginsave");
+						System.out.println("야야야야");
+						System.out.println(cookiesave);
+						if(cookiesave==null) {
+							Cookie loginsave=new Cookie("loginsave", uservo.getEmail());
+							loginsave.setPath("/");
+							loginsave.setMaxAge(60);
+							response.addCookie(loginsave);
+							System.out.println("으으으");
+							System.out.println(loginsave.getValue());
+						}
+					}else {
+						Cookie loginsave=new Cookie("loginsave", "");
+						loginsave.setPath("/");
+						loginsave.setMaxAge(0);
+						response.addCookie(loginsave);
+					}
+				}else {
+					result="pwfail";
+				}
+			}
+			
+			return result;
+	
+}	
+		
+		//로그아웃 요청
+		@GetMapping("IY_logout")
+		public ModelAndView logout(HttpSession session, HttpServletResponse response) {
+			Cookie loginCookie =new Cookie("loginCookie", null);
+			loginCookie.setPath("/");
+			loginCookie.setMaxAge(0);
+			response.addCookie(loginCookie);
+			session.invalidate();
+			
+			
+			return new ModelAndView("index");
+		}
+		
+		//이메일 아이디 찾기 요청
+		@PostMapping("IY_searchid")
+		public String searchid(@RequestBody UserVO uservo) {
+			UserVO user=user_Service.searchid(uservo);
+			String id=user.getEmail();
+			return id;
+		}
+		
+		
+		//비밀번호 찾기 요청
+		@PostMapping("IY_searchpw")
+		public String searchpw(@RequestBody UserVO uservo) {
+			String check="no";
+			UserVO user=user_Service.searchpw(uservo);
+			
+			
+			if(user!=null) {
+				check="ok";
+			}
+							
+			return check;
+		}
+		
+		//비밀번호 변경 요청
+		@PostMapping(value = "IY_pwupdate",produces ="application/text; charset=utf8")
+		public String pwupdate(@RequestBody UserVO uservo) {
+			String pw = uservo.getPw();
+			uservo.setPw(UserSha256.encrypt(pw));
+			user_Service.pwupdate(uservo);
+			String ok="비밀번호 변경 완료";
+			return ok;
+		}
+		
+		@PostMapping(value="/uploadSummernoteImageFile", produces = "application/json")
+		public Object uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile) {
+			Map<String, Object> object = new HashMap<String, Object>();
+			
+			String fileRoot = "C:\\summernote\\board\\";	//저장될 외부 파일 경로
+			
+			String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
+			String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
+			String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
+			
+			File targetFile = new File(fileRoot + savedFileName);	
+			
+			try {
+				InputStream fileStream = multipartFile.getInputStream();
+				FileUtils.copyInputStreamToFile(fileStream, targetFile);	//파일 저장
+				System.out.println("파일 저장 성공");
+			/*
+			 * object.put("url",fileRoot); object.put("fileName", savedFileName);
+			 */
+				object.put("url","/controller/summernote/board/"+savedFileName);
+			System.out.println("등록 성공");
+			} catch (IOException e) {
+				FileUtils.deleteQuietly(targetFile);	//저장된 파일 삭제
+				object.put("responseCode", "error");
+				e.printStackTrace();
+				System.out.println("에러발생");
+			}
+			return object;
+		}
+		
+		
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
