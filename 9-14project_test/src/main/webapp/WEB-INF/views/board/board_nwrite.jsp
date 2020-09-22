@@ -98,11 +98,11 @@
 						nb_title:$("#board_title").val(),
 		    		nb_cont:$("#board_summernote").val(),
 		    		nb_img_url:url,
-		    		email:"<c:out value='${login.email}'/>"
+		    		email:"${login.email}"
 		    	};
 				console.log(boardInfo);
  				 $.ajax({
-		    		type:"post",
+		    		type:"POST",
 		    		url:"nb_insert",
 		    		headers:{"Content-Type":"application/json"},
 		    		data:JSON.stringify(boardInfo),

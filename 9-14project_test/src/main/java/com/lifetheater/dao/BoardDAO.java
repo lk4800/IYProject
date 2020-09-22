@@ -18,4 +18,6 @@ public interface BoardDAO {
 	void nBoardNoImgInsert(NBoardVO nBoardVO);
 
 	void nBoardInsert(NBoardVO nBoardVO);
+
+	FBoardVO selectFBCont(int fb_num);
 }

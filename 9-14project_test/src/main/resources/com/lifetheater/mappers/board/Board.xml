@@ -21,7 +21,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into tbl_inyeon_nboard values(nb_seq.nextval,#{nb_title},#{nb_cont},0,sysdate,#{nb_img_url},#{email})
 	</insert>
 	<insert id="nb_noImgInsert">
-		insert into tbl_inyeon_fboard(nb_num,nb_title,nb_cont,nb_date,email) values(nb_seq.nextval,#{nb_title},#{nb_cont},sysdate,#{email})
+		insert into tbl_inyeon_nboard(nb_num,nb_title,nb_cont,nb_date,email) values(nb_seq.nextval,#{nb_title},#{nb_cont},sysdate,#{email})
 	</insert>
+	
+	<select id="selectFBCont" resultType="fbcont">
+		<!-- 게시판테이블의 제목,내용,등록날짜,조회수 + 유져테이블의 이름을 가져와대요 -->
+		<!-- 유져테이블의 이름을 가져오기위한 이메일은 게시판 테이블에있습니다. -->
+select tbl_inyeon_fboard.fb_title,tbl_inyeon_fboard.fb_cont,tbl_inyeon_fboard.fb_date,tbl_inyeon_fboard.fb_hit,
+		tbl_inyeon_user.name
+		 from tbl_inyeon_fboard,tbl_inyeon_user where tbl_inyeon_fboard.fb_num=#{fb_num} and tbl_inyeon_user.email=(select email from TBL_INYEON_FBOARD where fb_num=#{fb_num})
+	</select>
 </mapper>
 

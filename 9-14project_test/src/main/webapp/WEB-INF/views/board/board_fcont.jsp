@@ -13,7 +13,7 @@
 		<div class="board_contentBox">
 			<!-- 헤더 시작 -->
 			<div id="board_cont_header">
-			<h3 id="board_cont_title">게시물 제목입니다</h3>
+			<h3 id="board_cont_title">${fb.fb_title}</h3>
 				<div id="board_cont_writerInfo">
 					<div id="board_cont_profile">
 						<div id="board_cont_nameBox">

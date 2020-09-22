@@ -38,5 +38,11 @@ public class BoardServiceImpl implements BoardService {
 			this.BoardDao.nBoardInsert(nBoardVO);
 		
 	}
+
+	@Override
+	public FBoardVO selectFBCont(int fb_num) {
+		return this.BoardDao.selectFBCont(fb_num);
+		
+	}
 	
 }

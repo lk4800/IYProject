@@ -13,4 +13,6 @@ public interface BoardService{
 
 	void nBoardInsert(NBoardVO nBoardVO);
 
+	FBoardVO selectFBCont(int fb_num);
+
 }

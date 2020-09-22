@@ -53,4 +53,10 @@ public class BoardDAOImpl implements BoardDAO {
 		this.sqlSession.insert("nb_noImgInsert",nBoardVO);
 		
 	}
+
+
+	@Override
+	public FBoardVO selectFBCont(int fb_num) {
+		return this.sqlSession.selectOne("selectFBCont", fb_num);
+	}
 }

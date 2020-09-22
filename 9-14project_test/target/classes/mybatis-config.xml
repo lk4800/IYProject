@@ -6,5 +6,9 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.lifetheater.vo.UserVO" alias="u" />
+		<typeAlias type="com.lifetheater.vo.FBoardVO" alias="fb" />
+		<typeAlias type="com.lifetheater.vo.PBoardVO" alias="pb" />
+		<typeAlias type="com.lifetheater.vo.NBoardVO" alias="nb" />
+		<typeAlias type="com.lifetheater.vo.FBoardContVO" alias="fbcont" />
 	</typeAliases>
 </configuration>

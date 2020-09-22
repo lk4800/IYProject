@@ -14,5 +14,8 @@ start with 1
 increment by 1
 nocache
 
+drop table tbl_inyeon_nboard;
+
+alter table tbl_inyeon_nboard add constraint nb_fk_email foreign key (email) references tbl_inyeon_user(email); 
 
 

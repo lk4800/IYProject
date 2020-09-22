@@ -5,6 +5,7 @@ import java.io.File;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,7 +20,7 @@ import com.lifetheater.vo.PBoardVO;
 public class IY_board {
 	
 	@Autowired
-	private BoardService FBService;
+	private BoardService Service;
 	
 	/*
 	 * @Autowired BoardService boardService;
@@ -38,7 +39,9 @@ public class IY_board {
 		return "board/board_fedit";
 	}
 	@GetMapping("IY_board_fcont")
-	public String board_fcont() {
+	public String board_fcont(int fb_num,Model m) {
+		FBoardVO fb = this.Service.selectFBCont(fb_num);
+		m.addAttribute("fb",fb);
 		return "board/board_fcont";
 	}
 
@@ -76,26 +79,21 @@ public class IY_board {
 		return "board/board_ncont";
 	}
 	
-	@PostMapping("board_fwrite_ok")
-	public void board_fwrite_ok() {
-		
-	}
-	
 	@PostMapping("/fb_insert")
 	public String fbInsert(@RequestBody FBoardVO fBoardVO) {
-		this.FBService.fBoardInsert(fBoardVO);
+		this.Service.fBoardInsert(fBoardVO);
 		return "redirect:IY_board_flist";
 	}
 	
 	@PostMapping("/pb_insert")
 	public String pbInsert(@RequestBody PBoardVO pBoardVO) {
-		this.FBService.pBoardInsert(pBoardVO);
+		this.Service.pBoardInsert(pBoardVO);
 		return "redirect:IY_board_flist";
 	}
 	
 	@PostMapping("/nb_insert")
 	public String nbInsert(@RequestBody NBoardVO nBoardVO) {
-		this.FBService.nBoardInsert(nBoardVO);
+		this.Service.nBoardInsert(nBoardVO);
 		return "redirect:IY_board_flist";
 	}
 	
