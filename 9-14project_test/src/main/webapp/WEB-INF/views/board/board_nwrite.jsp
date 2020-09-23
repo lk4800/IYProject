@@ -107,7 +107,7 @@
 		    		headers:{"Content-Type":"application/json"},
 		    		data:JSON.stringify(boardInfo),
  		    		success:function(){
-		    			window.location.replace("IY_board_flist");
+		    			window.location.replace("IY_board_nlist");
 		    		} 
 		    });
 			}

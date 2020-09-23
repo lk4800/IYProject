@@ -1,7 +1,7 @@
 package com.lifetheater.controller;
 
 
-import java.io.File;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,10 +9,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.lifetheater.service.BoardService;
+import com.lifetheater.service.RepService;
+import com.lifetheater.vo.FBoardContVO;
 import com.lifetheater.vo.FBoardVO;
+import com.lifetheater.vo.FRepContVO;
 import com.lifetheater.vo.NBoardVO;
 import com.lifetheater.vo.PBoardVO;
 
@@ -21,6 +23,8 @@ public class IY_board {
 	
 	@Autowired
 	private BoardService Service;
+	@Autowired
+	private RepService repService;
 	
 	/*
 	 * @Autowired BoardService boardService;
@@ -40,8 +44,16 @@ public class IY_board {
 	}
 	@GetMapping("IY_board_fcont")
 	public String board_fcont(int fb_num,Model m) {
-		FBoardVO fb = this.Service.selectFBCont(fb_num);
-		m.addAttribute("fb",fb);
+		FBoardContVO fbCont = this.Service.selectFBCont(fb_num);
+		List<FRepContVO> frContList = this.repService.selectFreCont(fb_num);
+		int totalRep = this.repService.totalRep(fb_num);
+		this.Service.fHitUp(fb_num);
+		m.addAttribute("fbCont",fbCont);
+		m.addAttribute("frContList", frContList);
+		m.addAttribute("totalRep",totalRep);
+		for(FRepContVO a : frContList) {
+			System.out.println("중간 확인 : "+a.getName()+", "+a.getFb_reply_cont()+", "+a.getFb_reply_date());
+		}
 		return "board/board_fcont";
 	}
 
@@ -96,22 +108,5 @@ public class IY_board {
 		this.Service.nBoardInsert(nBoardVO);
 		return "redirect:IY_board_flist";
 	}
-	
-	
-	@PostMapping("/fileuploadAction")
-	public void uploadAjaxAction(MultipartFile[] uploadFile) {
-		System.out.println("update ajax post...");
-		String uploadFolder = "C://upload";
-		
-		for(MultipartFile multipartFile:uploadFile) {
-			String uploadFileName = multipartFile.getOriginalFilename();
-			uploadFileName=uploadFileName.substring(uploadFileName.lastIndexOf("\\")+1);
-			System.out.println("only file name : "+uploadFileName);
-			File saveFile=new File(uploadFolder,uploadFileName);
-			try {
-				multipartFile.transferTo(saveFile);
-			}catch(Exception e) {e.printStackTrace();}
-		}
-	}//uploadAjaxAction()
 	
 }

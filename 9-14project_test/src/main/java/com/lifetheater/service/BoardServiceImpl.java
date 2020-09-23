@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lifetheater.dao.BoardDAO;
+import com.lifetheater.dao.RepDAO;
+import com.lifetheater.vo.FBoardContVO;
 import com.lifetheater.vo.FBoardVO;
 import com.lifetheater.vo.NBoardVO;
 import com.lifetheater.vo.PBoardVO;
@@ -13,6 +15,7 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Autowired
 	private BoardDAO BoardDao;
+	
 
 	@Override
 	public void fBoardInsert(FBoardVO fBoardVO) {
@@ -40,8 +43,13 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public FBoardVO selectFBCont(int fb_num) {
+	public FBoardContVO selectFBCont(int fb_num) {
 		return this.BoardDao.selectFBCont(fb_num);
+	}
+
+	@Override
+	public void fHitUp(int fb_num) {
+		this.BoardDao.fHitUp(fb_num);
 		
 	}
 	

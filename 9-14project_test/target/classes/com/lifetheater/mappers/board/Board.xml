@@ -27,9 +27,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectFBCont" resultType="fbcont">
 		<!-- 게시판테이블의 제목,내용,등록날짜,조회수 + 유져테이블의 이름을 가져와대요 -->
 		<!-- 유져테이블의 이름을 가져오기위한 이메일은 게시판 테이블에있습니다. -->
-select tbl_inyeon_fboard.fb_title,tbl_inyeon_fboard.fb_cont,tbl_inyeon_fboard.fb_date,tbl_inyeon_fboard.fb_hit,
-		tbl_inyeon_user.name
-		 from tbl_inyeon_fboard,tbl_inyeon_user where tbl_inyeon_fboard.fb_num=#{fb_num} and tbl_inyeon_user.email=(select email from TBL_INYEON_FBOARD where fb_num=#{fb_num})
+		select tbl_inyeon_fboard.fb_num,tbl_inyeon_fboard.fb_title,tbl_inyeon_fboard.fb_cont,tbl_inyeon_fboard.fb_date,tbl_inyeon_fboard.fb_hit,
+		tbl_inyeon_user.name from tbl_inyeon_fboard,tbl_inyeon_user where 
+		tbl_inyeon_fboard.fb_num=#{fb_num} and tbl_inyeon_user.email=(select email from TBL_INYEON_FBOARD where fb_num=#{fb_num})
 	</select>
+	
+	<update id="fbHitUp">
+		update tbl_inyeon_fboard set fb_hit=fb_hit+1 where fb_num=#{fb_num} 
+	</update>
 </mapper>
 

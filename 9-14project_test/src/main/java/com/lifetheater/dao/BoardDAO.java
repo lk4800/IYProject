@@ -1,5 +1,6 @@
 package com.lifetheater.dao;
 
+import com.lifetheater.vo.FBoardContVO;
 import com.lifetheater.vo.FBoardVO;
 import com.lifetheater.vo.NBoardVO;
 import com.lifetheater.vo.PBoardVO;
@@ -19,5 +20,7 @@ public interface BoardDAO {
 
 	void nBoardInsert(NBoardVO nBoardVO);
 
-	FBoardVO selectFBCont(int fb_num);
+	FBoardContVO selectFBCont(int fb_num);
+
+	void fHitUp(int fb_num);
 }

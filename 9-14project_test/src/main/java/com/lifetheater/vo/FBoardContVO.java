@@ -6,6 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class FBoardContVO {
+	int fb_num;
 	String fb_title;
 	String fb_cont;
 	String fb_hit;

@@ -28,8 +28,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
 
+import com.lifetheater.service.RepService;
 import com.lifetheater.service.UserService;
 import com.lifetheater.service.UserSha256;
+import com.lifetheater.vo.FReplyVO;
 import com.lifetheater.vo.UserVO;
 
 @RestController
@@ -37,6 +39,8 @@ public class RestProjectController {//ajax로 문자열을 받기위해 사용
 
 	@Autowired
 	private UserService user_Service;
+	@Autowired
+	private RepService repService;
 
 	@RequestMapping(value="/confirmEmail",method=RequestMethod.POST)
 	public ResponseEntity<String> confiem_email(@RequestBody UserVO user) {//이메일중복확인
@@ -217,6 +221,22 @@ public class RestProjectController {//ajax로 문자열을 받기위해 사용
 				System.out.println("에러발생");
 			}
 			return object;
+		}
+		
+		
+		@PostMapping("/fb_rep_insert")
+		public ResponseEntity<Void> fb_rep_insert(@RequestBody FReplyVO re) {
+			ResponseEntity<Void> entity = null;
+			try { 
+				System.out.println("실행됨");
+				this.repService.repInsert(re);
+					entity = new ResponseEntity<Void>(HttpStatus.OK);
+	
+			}catch(Exception e) {
+				e.printStackTrace();
+				entity = new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+			}
+			return entity;
 		}
 		
 		

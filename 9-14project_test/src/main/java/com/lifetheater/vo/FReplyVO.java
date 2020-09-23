@@ -5,11 +5,11 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class FReply {
+public class FReplyVO {
   private int freply_num;
   private int fboard_num;
   private String fb_reply_cont;
   private String fb_reply_date;
   private String fb_reply_reply;
-  private String fb_img_url;
+  private String email;
 }

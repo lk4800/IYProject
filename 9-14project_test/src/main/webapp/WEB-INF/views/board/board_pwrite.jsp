@@ -98,7 +98,7 @@
 						pb_title:$("#board_title").val(),
 		    		pb_cont:$("#board_summernote").val(),
 		    		pb_img_url:url,
-		    		email:"<c:out value='${login.email}'/>"
+		    		email:"${login.email}"
 		    	};
 				console.log(boardInfo);
  				 $.ajax({

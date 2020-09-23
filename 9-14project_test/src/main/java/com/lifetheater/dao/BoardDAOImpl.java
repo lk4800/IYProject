@@ -4,6 +4,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.lifetheater.vo.FBoardContVO;
 import com.lifetheater.vo.FBoardVO;
 import com.lifetheater.vo.NBoardVO;
 import com.lifetheater.vo.PBoardVO;
@@ -56,7 +57,13 @@ public class BoardDAOImpl implements BoardDAO {
 
 
 	@Override
-	public FBoardVO selectFBCont(int fb_num) {
+	public FBoardContVO selectFBCont(int fb_num) {
 		return this.sqlSession.selectOne("selectFBCont", fb_num);
+	}
+
+
+	@Override
+	public void fHitUp(int fb_num) {
+		this.sqlSession.update("fbHitUp", fb_num);
 	}
 }

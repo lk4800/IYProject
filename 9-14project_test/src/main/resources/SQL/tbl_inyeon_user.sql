@@ -24,8 +24,6 @@ select sysdate, sysdate + 1/(24*60) from dual;
 select sysdate, sysdate + 100 from dual;
 
 
-
-
 create sequence fb_seq
 start with 1
 increment by 1

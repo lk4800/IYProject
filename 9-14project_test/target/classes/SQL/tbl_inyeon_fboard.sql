@@ -27,6 +27,11 @@ select tbl_inyeon_fboard.fb_title,tbl_inyeon_fboard.fb_cont,tbl_inyeon_fboard.fb
 		tbl_inyeon_user.name
 from tbl_inyeon_fboard,tbl_inyeon_user where tbl_inyeon_fboard.fb_num=1 and tbl_inyeon_user.email=(select email from TBL_INYEON_FBOARD where fb_num=1);
 
+select * from tbl_inyeon_fboard;
+
+
+
+
 
 
 

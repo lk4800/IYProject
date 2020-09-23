@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="User">
+ <insert id="rep_insert" parameterType="re">	
+ 		insert into tbl_inyeon_freply(freply_num,fboard_num,fb_reply_cont,fb_reply_date,email,del_ck) 
+ 		values(fre_seq.nextval,#{fboard_num},#{fb_reply_cont},sysdate,(select email from tbl_inyeon_user where email=#{email}),1)
+ </insert>
+ 
+ <select id="select_fre_cont" resultType="recont">
+ select tbl_inyeon_freply.freply_num,tbl_inyeon_freply.fb_reply_cont,tbl_inyeon_freply.fb_reply_date,tbl_inyeon_user.email,tbl_inyeon_user.name 
+ 		 from tbl_inyeon_freply inner join tbl_inyeon_user on tbl_inyeon_freply.email=tbl_inyeon_user.email where
+ 		 tbl_inyeon_freply.fboard_num=#{fb_num} order by tbl_inyeon_freply.freply_num desc
+ </select>
+ 
+ <select id="totalRep" resultType="int">
+ 	SELECT COUNT(*) FROM tbl_inyeon_freply WHERE fboard_num = #{fb_num}
+ </select>
+ 
+</mapper>
