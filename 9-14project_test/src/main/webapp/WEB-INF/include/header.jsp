@@ -16,20 +16,20 @@
     </c:if>
     <c:if test="${login ne null}">
     <a href="IY_logout">로그아웃</a>
-    <a href="IY_mypage">마이페이지</a>
+    <a href="IY_mypage" id="gotoMypage">마이페이지</a>
     </c:if>
     </div>
     
   </div>
   <script>
-    $(window).on('scroll',function(){
-       var stop=$(this).scrollTop();
-       if(stop>200){
-          document.getElementsByClassName("top-login").style.display="block";
-       }else{
-          document.getElementsByClassName("top-login").style.display="none";
-       }
-    })
+  $('#gotoMypage').click(function(){
+  	var gotoMypageRes = confirm('로그인이 필요한 서비스입니다.\n로그인페이지로 이동하시겠습니까?');
+  	if(gotoMypageRes==true){
+  		location.href="/controller/IY_login";
+  	}else{
+  		return false;
+  	}
+  })
   </script>
 
   <header class="top-menu">

@@ -228,7 +228,7 @@ public class RestProjectController {//ajax로 문자열을 받기위해 사용
 		public ResponseEntity<Void> fb_rep_insert(@RequestBody FReplyVO re) {
 			ResponseEntity<Void> entity = null;
 			try { 
-				System.out.println("실행됨");
+				System.out.println("일반 댓글 실행됨");
 				this.repService.repInsert(re);
 					entity = new ResponseEntity<Void>(HttpStatus.OK);
 	
@@ -238,6 +238,23 @@ public class RestProjectController {//ajax로 문자열을 받기위해 사용
 			}
 			return entity;
 		}
+		
+		@PostMapping("/fb_rep_rep_insert")
+		public ResponseEntity<Void> fb_rep_rep_insert(@RequestBody FReplyVO re) {
+			ResponseEntity<Void> entity = null;
+			try { 
+				System.out.println("중간 확인 : "+re.getFb_reply_reply_name()+", "+re.getFb_reply_reply_cont());
+				this.repService.rep_repInsert(re);
+				entity = new ResponseEntity<Void>(HttpStatus.OK);
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+				entity = new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+			}
+			return entity;
+		}
+		
+		
 		
 		
 }

@@ -1,10 +1,11 @@
 
 create table tbl_inyeon_freply( --자유 게시판 댓글 테이블
-	freply_num int not null,--자유 게시판 댓글 번호
+	freply_num int primary key,--자유 게시판 댓글 번호
 	fboard_num int,--자유 게시판 번호
 	fb_reply_cont varchar2(2000) not null,--자유 게시판 댓글 내용
 	fb_reply_date date,--자유 게시판 댓글 등록일
-	fb_reply_reply varchar2(400),--자유 게시판 대댓글 유무
+	fb_reply_reply_name varchar2(400),--자유 게시판 대댓글이 참조하는 작성자 이름
+	fb_reply_reply_cont varchar2(400),--자유 게시판 대댓글이 참조하는 댓글 내용
 	email varchar2(100),
 	del_ck char not null
 )
@@ -74,4 +75,12 @@ nocache
  		 SELECT COUNT(*)
 FROM tbl_inyeon_freply
 WHERE TABLE_NAME = '테이블명'
+
+
+  tbl_inyeon_freply.fb_reply_reply_name,tbl_inyeon_freply.fb_reply_reply_name
+ select tbl_inyeon_freply.freply_num,tbl_inyeon_freply.fb_reply_cont,tbl_inyeon_freply.fb_reply_date,tbl_inyeon_user.email,tbl_inyeon_user.name,tbl_inyeon_freply.fb_reply_reply_name,tbl_inyeon_freply.fb_reply_reply_cont 
+  from tbl_inyeon_freply inner join tbl_inyeon_user on tbl_inyeon_freply.email=tbl_inyeon_user.email where
+ 		 tbl_inyeon_freply.fboard_num=2 order by tbl_inyeon_freply.freply_num desc
+
+
  	

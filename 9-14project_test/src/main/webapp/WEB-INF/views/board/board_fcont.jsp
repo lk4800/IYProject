@@ -61,24 +61,52 @@
 							
 						</c:if>
 						<c:if test="${!empty frContList}"> --%>
-							<c:forEach var="r" items="${frContList}">
+						<c:forEach var="r" items="${frContList}">
+							<!-- /반복 해야대 -->
+							<c:if test="${empty r.fb_reply_reply_name}">
+								<li class="boad_cont_commentItem">
+									<div class="board_cont_commentArea">
+										<div class="board_cont_comment_nickBox">
+
+											<span class="board_cont_comment_nickname">${r.name}</span>
+										</div>
+										<div class="board_cont_comment_contBox">
+											<span class="board_cont_comment_content"><pre>${r.fb_reply_cont}</pre></span>
+										</div>
+										<div class="board_cont_comment_infoBox">
+											<span class="board_cont_comment_info_date">${r.fb_reply_date}</span>
+											<button role="button" class="board_cont_comment_info_button"
+												onclick="rep_rep_write('${r.name}','${r.fb_reply_cont}');">답글쓰기</button>
+											<!--  -->
+										</div>
+									</div>
+								</li>
 								<!-- /반복 해야대 -->
-						<li class="boad_cont_commentItem">
-							<div class="board_cont_commentArea">
-								<div class="board_cont_comment_nickBox">
-									<span class="board_cont_comment_nickname">${r.name}</span>
-								</div>
-								<div class="board_cont_comment_contBox">
-									<span class="board_cont_comment_content"><pre>${r.fb_reply_cont}</pre></span>
-								</div>
-								<div class="board_cont_comment_infoBox">
-									<span class="board_cont_comment_info_date">${r.fb_reply_date}</span>
-									<a  role="button" class="board_cont_comment_info_button">답글쓰기</a>
-								</div>
-							</div>
-						</li>
-						<!-- /반복 해야대 -->
-							</c:forEach>
+							</c:if>
+							<c:if test="${!empty r.fb_reply_reply_name}">
+								<li class="boad_cont_commentItem">
+									<div class="board_cont_commentArea">
+										<div class="board_cont_comment_nickBox">
+											<span class="board_cont_comment_nickname">${r.name}</span>
+										</div>
+										<div class="board_cont_rep_info">
+											<span class="board_cont_rep_rep_name">${r.fb_reply_reply_name}</span>
+											<span class="board_cont_rep_rep_cont">${r.fb_reply_reply_cont}</span>
+										</div>
+										<div class="board_cont_comment_contBox">
+											<span class="board_cont_comment_content"><pre>${r.fb_reply_cont}</pre></span>
+										</div>
+										<div class="board_cont_comment_infoBox">
+											<span class="board_cont_comment_info_date">${r.fb_reply_date}</span>
+											<button role="button" class="board_cont_comment_info_button"
+												onclick="rep_rep_write('${r.name}','${r.fb_reply_cont}');">답글쓰기</button>
+											<!--  -->
+										</div>
+									</div>
+								</li>
+								<!-- /반복 해야대 -->
+							</c:if>
+						</c:forEach>
 						<%-- </c:if> --%>
 						
 					</ul>
@@ -87,6 +115,9 @@
 						<div class="board_cont_comment_commentWriter">
 							<div class="board_cont_comment_inbox">
 								<span class="board_cont_comment_inboxName">${login.name}</span>
+								<span id="board_rep_arpa">@</span><span id="board_rep_name"></span>
+								<span id="board_rep_cont"></span>
+								<div class="clear"></div>
 								<textarea placeholder="댓글을 남겨보세요" rows="1" 
 									class="board_cont_comment_inbox_text" onkeydown="resize(this)"
 									onkeyup="resize(this)"
@@ -94,7 +125,8 @@
 							</div>
 								<div class="board_cont_comment_register_box">
 									<!-- 댓글 등록 버튼 -->
-									<a href="#" role="button" class="button btn_register is_active" onclick="repInsert();">등록</a>
+									<span id="board_req_cancle" onclick="req_cacle();">취소</span>
+									<span role="button" class="button btn_register is_active" onclick="repInsert();">등록</span>
 								</div>
 								<!--  -->
 								<div class="clear"></div>
@@ -102,9 +134,9 @@
 						<!-- 댓글 끝 -->
 					</c:if>
 					<div class="board_cont_btnBox"> <!-- 목록버튼 -->
-						<button class="board_cont_listbtn" onclick="location='IY_board_list'">목록</button>
+						<button class="board_cont_listbtn" onclick="location='IY_board_flist'">목록</button>
 						<button class="board_cont_delbtn" onclick="delcheck();">삭제</button>
-						<button class="board_cont_editbtn" onclick="delcheck();">수정</button>
+						<button class="board_cont_editbtn" onclick="location='IY_fboardEdit?fb_num=${fbCont.fb_num}'">수정</button>
 					</div>
 					<div class="clear"></div>
 				</div>
@@ -114,6 +146,8 @@
 		<jsp:include page="../../include/footer.jsp" />
 </body>
 <script>
+$("#board_rep_arpa").hide();
+
 	function resize(h) {//댓글 입력란 높이 자동 증가
 	  h.style.height = "1px";
 	  h.style.height = (12+h.scrollHeight)+"px";
@@ -124,6 +158,7 @@
 			/*삭제 확인시 실행*/
 		}
 	}
+	
 	console.log($("#board_cont_fb_num").html());
 	function repInsert(){//댓글 등록 시 실행
 		if($.trim($(".board_cont_comment_inbox_text").val()) == ""){
@@ -132,27 +167,75 @@
 			
 			return false;
 		}else{
-			const repInfo={
-					fboard_num:$("#board_cont_fb_num").html(),
-					fb_reply_cont:$(".board_cont_comment_inbox_text").val(),
-	    		email:"${login.email}"
-	    	};
-			console.log(repInfo);
-				 $.ajax({
-	    		type:"post",
-	    		url:"fb_rep_insert",
-	    		headers:{"Content-Type":"application/json"},
-	    		data:JSON.stringify(repInfo),
-		    		success:function(){
-		    			window.location.reload();
-		    			$('.board_cont_comment_inbox_text').val('');
-	    		} 
-	    });
+			 if(($("#board_rep_name").text()=="")&&($("#board_rep_cont").text()=="")){<%-- 일반 댓글일 경우 --%>
+				const repInfo={
+						fboard_num:$("#board_cont_fb_num").html(),
+						fb_reply_cont:$(".board_cont_comment_inbox_text").val(),
+		    		email:"${login.email}"
+		    	};
+				console.log(repInfo);
+					 $.ajax({
+		    		type:"post",
+		    		url:"fb_rep_insert",
+		    		headers:{"Content-Type":"application/json"},
+		    		data:JSON.stringify(repInfo),
+			    		success:function(){
+			    			window.location.reload();
+			    			$('.board_cont_comment_inbox_text').val('');
+		    		} 
+		    });
+			 }
+			 else{ <%-- 대댓글 일경우 --%>
+			 const repInfo={
+						fboard_num:$("#board_cont_fb_num").html(),
+						fb_reply_cont:$(".board_cont_comment_inbox_text").val(),
+						fb_reply_reply_name:$("#board_rep_name").text(),
+						fb_reply_reply_cont:$("#board_rep_cont").text(),
+		    		email:"${login.email}"
+		    	};
+				console.log(repInfo);
+					 $.ajax({
+		    		type:"post",
+		    		url:"fb_rep_rep_insert",
+		    		headers:{"Content-Type":"application/json"},
+		    		data:JSON.stringify(repInfo),
+			    		success:function(){
+			    			window.location.reload();
+			    			$('.board_cont_comment_inbox_text').val('');
+		    		} 
+		    });
+			 }
 		}
 	
 	}
 	//document.onkeydown = notReload;
-
+	//r.name},${r.fb_reply_cont}
+	function rep_rep_write(r,c){
+		
+		var N = r;
+		const C = c;
+		console.log(N);
+		console.log(C);
+/* 		$(".board_cont_comment_inbox_text").text('');
+		$(".board_cont_comment_inbox_text").append("<p style='color:gray;'>"+N+"<br>"+C+"</p>"); */
+	
+		$("#board_rep_name").text(N);
+		$("#board_rep_cont").text(C);
+		$("#board_rep_arpa").show();
+		
+		console.log($("#board_rep_name").text());
+		console.log($("#board_rep_cont").text());
+	}
+	
+	function req_cacle(){
+		$("#board_rep_name").text('');
+		$("#board_rep_cont").text('');
+		$("#board_rep_name").hide();
+		$("#board_rep_cont").hide();
+		$(".board_cont_comment_inbox_text").val('');
+		$(".board_cont_comment_inbox_text").focus();
+	}
+	
 </script>
 
 </html>

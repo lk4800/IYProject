@@ -30,5 +30,11 @@ public class RepServiceImpl implements RepService {
 	public int totalRep(int fb_num) {
 		return this.repDao.totalRep(fb_num);
 	}
+
+	@Override
+	public void rep_repInsert(FReplyVO re) {
+		this.repDao.rep_repInsert(re);
+		
+	}
 	
 }

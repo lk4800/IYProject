@@ -10,4 +10,6 @@ public class FRepContVO {
 	private String name;
 	private String fb_reply_cont;
 	private String fb_reply_date;
+	private String fb_reply_reply_cont;
+	private String fb_reply_reply_name;
 }

@@ -35,5 +35,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="fbHitUp">
 		update tbl_inyeon_fboard set fb_hit=fb_hit+1 where fb_num=#{fb_num} 
 	</update>
+	
+	<select id="selectCont" resultType="fb">
+	 select * from tbl_inyeon_fboard where fb_num=#{fb_num}
+	</select>
+	
+	<update id="fb_update">
+		update tbl_inyeon_fboard set fb_title=#{fb_title},fb_cont=#{fb_cont},fb_img_url=#{fb_img_url} where fb_num=#{fb_num}
+	</update>
+	
+	<update id="fb_NoImgupdate">
+		update tbl_inyeon_fboard set fb_title=#{fb_title},fb_cont=#{fb_cont} where fb_num=#{fb_num}
+	</update>
+	
 </mapper>
 

@@ -66,7 +66,7 @@ public class IY_user {
 		System.out.printf("중간 확인:%s,%s,%s,%s",user.getEmail(),user.getPw(),user.getName(),user.getPhone());
  		String user_pw = user.getPw();
  		user.setPw(UserSha256.encrypt(user_pw));
-		System.out.println("�ι�°:" + user.getPw());
+		System.out.println("확인 :" + user.getPw());
 		System.out.println(user.getEmail()+","+user.getName());
 		user_Service.mailSendWithUserKey(user,request);
 

@@ -30,6 +30,12 @@ public class RepDAOImpl implements RepDAO {
 	public int totalRep(int fb_num) {
 		return this.sqlSession.selectOne("totalRep", fb_num);
 	}
+
+	@Override
+	public void rep_repInsert(FReplyVO re) {
+		this.sqlSession.insert("rep_rep_insert",re);
+		
+	}
 	
 	
 	

@@ -66,4 +66,24 @@ public class BoardDAOImpl implements BoardDAO {
 	public void fHitUp(int fb_num) {
 		this.sqlSession.update("fbHitUp", fb_num);
 	}
+
+
+	@Override
+	public FBoardVO selectCont(int fb_num) {
+		return this.sqlSession.selectOne("selectCont", fb_num);
+	}
+
+
+	@Override
+	public void fBoardUpdate(FBoardVO fBoardVO) {
+		this.sqlSession.update("fb_update", fBoardVO);
+		
+	}
+
+
+	@Override
+	public void pBoardNoUpdate(FBoardVO fBoardVO) {
+		this.sqlSession.update("fb_NoImgupdate", fBoardVO);
+		
+	}
 }

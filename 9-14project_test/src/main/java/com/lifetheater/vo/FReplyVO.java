@@ -10,6 +10,7 @@ public class FReplyVO {
   private int fboard_num;
   private String fb_reply_cont;
   private String fb_reply_date;
-  private String fb_reply_reply;
+  private String fb_reply_reply_name;
+  private String fb_reply_reply_cont;
   private String email;
 }

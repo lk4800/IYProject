@@ -52,5 +52,19 @@ public class BoardServiceImpl implements BoardService {
 		this.BoardDao.fHitUp(fb_num);
 		
 	}
+
+	@Override
+	public FBoardVO selectCont(int fb_num) {
+		return this.BoardDao.selectCont(fb_num);
+	}
+
+	@Override
+	public void fBoardUpdate(FBoardVO fBoardVO) {
+		
+		if(fBoardVO.getFb_img_url() == null)
+			this.BoardDao.pBoardNoUpdate(fBoardVO);
+		else 
+			this.BoardDao.fBoardUpdate(fBoardVO);
+	}
 	
 }

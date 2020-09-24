@@ -20,7 +20,7 @@ alter table tbl_inyeon_fboard add constraint fb_fk_email foreign key (email) ref
 
 insert into tbl_inyeon_fboard values(fb_seq.nextval,'ㅁ','내용',0,sysdate,null,'wlghks4111@naver.com')
 
-select * from tbl_inyeon_fboard;
+select * from tbl_inyeon_fboard order by fb_num desc;
 
 
 select tbl_inyeon_fboard.fb_title,tbl_inyeon_fboard.fb_cont,tbl_inyeon_fboard.fb_date,tbl_inyeon_fboard.fb_hit,
@@ -29,8 +29,19 @@ from tbl_inyeon_fboard,tbl_inyeon_user where tbl_inyeon_fboard.fb_num=1 and tbl_
 
 select * from tbl_inyeon_fboard;
 
-
-
+create table abcd(
+a int primary key
+컬럼명 데이터타입 제약조건
+)
+create table abcde(
+a int,
+primary key(a),
+컬럼명 데이터타입,
+제약조건(컬럼명)
+)
+컬럼명 데이터타입,
+제약조건(컬럼명)
+drop table abcde;
 
 
 

@@ -52,7 +52,8 @@ public class IY_board {
 		m.addAttribute("frContList", frContList);
 		m.addAttribute("totalRep",totalRep);
 		for(FRepContVO a : frContList) {
-			System.out.println("중간 확인 : "+a.getName()+", "+a.getFb_reply_cont()+", "+a.getFb_reply_date());
+			System.out.println("중간 확인 : "+a.getName()+", "+a.getFb_reply_cont()+", "+a.getFb_reply_date()+ 
+					", "+a.getFb_reply_reply_name()+", "+a.getFb_reply_reply_cont());
 		}
 		return "board/board_fcont";
 	}
@@ -97,6 +98,14 @@ public class IY_board {
 		return "redirect:IY_board_flist";
 	}
 	
+	@PostMapping("/fb_update")
+	public String fbUpdate(@RequestBody FBoardVO fBoardVO) {
+		this.Service.fBoardUpdate(fBoardVO);
+		System.out.println("중간 확인 : "+fBoardVO.getFb_title()+", "+fBoardVO.getFb_cont()+","+fBoardVO.getFb_img_url());
+		return "redirect:IY_board_flist";
+	}
+	
+	
 	@PostMapping("/pb_insert")
 	public String pbInsert(@RequestBody PBoardVO pBoardVO) {
 		this.Service.pBoardInsert(pBoardVO);
@@ -107,6 +116,13 @@ public class IY_board {
 	public String nbInsert(@RequestBody NBoardVO nBoardVO) {
 		this.Service.nBoardInsert(nBoardVO);
 		return "redirect:IY_board_flist";
+	}
+	
+	@GetMapping("/IY_fboardEdit")
+	public String fboardFedit(int fb_num,Model m){
+		FBoardVO fb = this.Service.selectCont(fb_num);
+		m.addAttribute("fbCont", fb);
+		return "board/board_fedit";
 	}
 	
 }

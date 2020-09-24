@@ -51,7 +51,7 @@
 						</label>&nbsp;&nbsp;&nbsp;<span id="pwd_ch"></span>
 						<div class="form-block-body">
 							<div class="input-text size-w">
-								<input type="password" name="password" id="password"
+								<input type="password" name="pw" id="pw"
 									placeholder="비밀번호 (영문+숫자+특수문자 8자 이상)" required>
 							</div>
 						</div>
@@ -72,7 +72,7 @@
 						</label>&nbsp;&nbsp;&nbsp;<span id="user_ch"></span>
 						<div class="form-block-body">
 							<div class="input-text size-w type-l">
-								<input class="" type="text" name="username" value="" id="username"
+								<input class="" type="text" name="name" value="" id="name"
 									placeholder="이름을 입력해주세요." required>
 							</div>
 						</div>
@@ -85,7 +85,7 @@
 							<div class="ui-input-btn-combo">
 								<div class="input-text size-w type-l">
 									<!-- <input class="reauth" type="hidden" name="only_auth" value="1"> -->
-									<input type="tel" name="cell_phone" data-auth="cell_phone" id="cell_phone"
+									<input type="tel" name="phone" data-auth="cell_phone" id="phone"
 										placeholder="010-1234-5678" value="" required>
 								</div>
 							</div>
@@ -172,20 +172,20 @@
 					});
 				}
 			});
-			$('#password').on('keyup', function() {
+			$('#pw').on('keyup', function() {
 				//비밀번호 공백 확인
-				if($("#password").val() == ""){
-				    $('#password').css("background-color", "pink");
+				if($("#pw").val() == ""){
+				    $('#pw').css("background-color", "pink");
 					$('#pwChk').html('<b style="font-size:16px;color:red;">[패스워드는 필수정보에요!]</b>');
 					chk2 = false;
 				}		         
 				//비밀번호 유효성검사
-				else if(!getPwCheck.test($("#password").val()) || $("#password").val().length < 8){
-				    $('#password').css("background-color", "pink");
+				else if(!getPwCheck.test($("#pw").val()) || $("#pw").val().length < 8){
+				    $('#pw').css("background-color", "pink");
 					$('#pwd_ch').html('<b style="font-size:16px;color:red;">[특수문자 포함 8자이상으로 작성해주세요!]</b>');
 					chk2 = false;
 				} else {
-					$('#password').css("background-color", "white");
+					$('#pw').css("background-color", "white");
 					$('#pwd_ch').html('<b>√</b>');
 					$('#pwd_ch').css({'color':'#E95753',});
 					chk2 = true;
@@ -201,7 +201,7 @@
 					chk3 = false;
 				}		         
 				//비밀번호 확인란 유효성검사
-				else if($("#password").val() != $("#password_check").val()){
+				else if($("#pw").val() != $("#password_check").val()){
 				    $('#password_check').css("background-color", "pink");
 					$('#pwd_ch2').html('<b style="font-size:16px;color:red;">[비밀번호가 일치하지 않습니다!]</b>');
 					chk3 = false;
@@ -213,35 +213,35 @@
 				}
 			});
 			//이름 입력값 검증.
-			$('#username').on('keyup', function() {
+			$('#name').on('keyup', function() {
 				//이름값 공백 확인
-				if($("#username").val() == ""){
-				    $('#username').css("background-color", "pink");
+				if($("#name").val() == ""){
+				    $('#name').css("background-color", "pink");
 					$('#user_ch').html('<b style="font-size:16px;color:red;">[이름은 필수정보에요!]</b>');
 					chk4 = false;
 				}
 				else{
-					$('#username').css("background-color", "white");
+					$('#name').css("background-color", "white");
 					$('#user_ch').html('<b>√</b>');
 					$('#user_ch').css({'color':'#E95753',});
 					chk4 = true;
 				}
 			});
 			//핸드폰 유효성 검증
-			$('#cell_phone').on('keyup', function() {
+			$('#phone').on('keyup', function() {
 				//이름값 공백 확인
-				if($("#cell_phone").val() == ""){
-				    $('#cell_phone').css("background-color", "pink");
+				if($("#phone").val() == ""){
+				    $('#phone').css("background-color", "pink");
 					$('#phone_ch').html('<b style="font-size:16px;color:red;">[전화번호를 입력해주세요!]</b>');
 					chk5 = false;
 				}
-				else if(!getPhone.test($("#cell_phone").val())){
-				  $('#cell_phone').css("background-color", "pink");
+				else if(!getPhone.test($("#phone").val())){
+				  $('#phone').css("background-color", "pink");
 					$('#phone_ch').html('<b style="font-size:16px;color:red;">[전화번호를 올바르게 적어주세요!]</b>');
 					chk5 = false;
 				}
 				else{
-					$('#cell_phone').css("background-color", "white");
+					$('#phone').css("background-color", "white");
 					$('#phone_ch').html('<b>√</b>');
 					$('#phone_ch').css({'color':'#E95753',});
 					chk5 = true;

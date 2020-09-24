@@ -23,4 +23,10 @@ public interface BoardDAO {
 	FBoardContVO selectFBCont(int fb_num);
 
 	void fHitUp(int fb_num);
+
+	FBoardVO selectCont(int fb_num);
+
+	void fBoardUpdate(FBoardVO fBoardVO);
+
+	void pBoardNoUpdate(FBoardVO fBoardVO);
 }

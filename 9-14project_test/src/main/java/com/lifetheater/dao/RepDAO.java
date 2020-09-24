@@ -13,4 +13,6 @@ public interface RepDAO {
 
 	int totalRep(int fb_num);
 
+	void rep_repInsert(FReplyVO re);
+
 }

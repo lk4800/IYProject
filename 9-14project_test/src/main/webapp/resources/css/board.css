@@ -388,3 +388,35 @@ a {
 .board_cont_comment_inbox_text::placeholder {
   color: gray;
 }
+
+.board_cont_comment_info_button:hover{
+	cursor: pointer;
+}
+#board_rep_cont,#board_rep_name,#board_rep_arpa,.board_cont_rep_rep_name,.board_cont_rep_rep_cont{
+	font-size: 13px;
+  color: #979797;
+}
+.board_cont_rep_info{
+	margin-bottom:7px;
+}
+.board_cont_rep_rep_cont{
+	margin-left: 2px;
+}
+#board_req_cancle{
+	font-size: 13px;
+  color: #b1b1b1eb;
+  cursor: pointer;
+  margin-right:2px;
+}
+
+.is_active:hover{
+		font-size: 13px;
+  color: #b1b1b1eb;
+  cursor: pointer;
+}
+
+
+  
+   
+   
+   

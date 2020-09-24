@@ -18,4 +18,8 @@ public interface BoardService{
 
 	void fHitUp(int fb_num);
 
+	FBoardVO selectCont(int fb_num);
+
+	void fBoardUpdate(FBoardVO fBoardVO);
+
 }
