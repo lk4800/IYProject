@@ -44,7 +44,7 @@ public class IY_index {
 			id = null;
 		}
 		List<TListVO> list = TheaterAPI.getInstance().getTheaterList();
-		System.out.println("total len : " + list.size());
+		//System.out.println("total len : " + list.size());
 		List<TListVO> tmpList = new ArrayList<>();
 		for(int i=0; i<4; i++) {
 			int r = (int)(Math.random()*list.size());
@@ -59,12 +59,14 @@ public class IY_index {
 	@RequestMapping("/lifetheater/main_rank/type={type}")
 	@ResponseBody
 	public ResponseEntity<List<TRankVO>> getTRank(@PathVariable("type") String type){
+		//System.out.println("rank type : " + type);
 		List<TRankVO> list = TheaterAPI.getInstance().getTRanking(type);
 		
 		List<TRankVO> tmpList = new ArrayList<>();
 		
 		for(int i=0; i<3; i++) {
 			tmpList.add(list.get(i));
+			//System.out.println("poster url  "+tmpList.get(i).getPoster_url());
 		}
 		return new ResponseEntity<List<TRankVO>>(tmpList,HttpStatus.OK);
 	}

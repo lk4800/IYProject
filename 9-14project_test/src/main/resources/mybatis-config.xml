@@ -12,5 +12,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.lifetheater.vo.FBoardContVO" alias="fbcont" />
 		<typeAlias type="com.lifetheater.vo.FReplyVO" alias="re" />
 		<typeAlias type="com.lifetheater.vo.FRepContVO" alias="recont" />
+		<typeAlias type="com.lifetheater.vo.GugunVO" alias="g" />
 	</typeAliases>
 </configuration>

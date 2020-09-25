@@ -107,10 +107,6 @@ a {
     white-space:nowrap;
 }
 
-.board_list_body div.board_tit {
-    text-align: left;
-}
-
 .board_list_body div.board_tit a:hover {
     text-decoration: underline;
 }

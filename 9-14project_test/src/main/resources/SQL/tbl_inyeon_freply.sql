@@ -13,8 +13,9 @@ create table tbl_inyeon_freply( --자유 게시판 댓글 테이블
 drop table tbl_inyeon_freply;
 
 alter table tbl_inyeon_freply add constraint frep_fk_email foreign key (email) references tbl_inyeon_user(email);
-alter table tbl_inyeon_freply add constraint frep_fk_bn foreign key (fboard_num) references tbl_inyeon_fboard(fb_num);
+alter table tbl_inyeon_freply add constraint frep_fk_bn foreign key (fboard_num) references tbl_inyeon_fboard(fb_num) on delete cascade;
 
+alter table tbl_inyeon_freply drop constraint frep_fk_bn
 create sequence fre_seq
 start with 1
 increment by 1

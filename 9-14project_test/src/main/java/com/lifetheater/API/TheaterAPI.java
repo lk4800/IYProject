@@ -2,6 +2,7 @@ package com.lifetheater.API;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -45,7 +46,7 @@ public class TheaterAPI {
 			
 				url = url + "?service="+serviceKey
 						+"&stdate="+sdate+"&eddate="+edate+"&cpage="+cPage+"&rows="+rows+"&shcate=AAAA";
-				System.out.println("url : " + url);
+				//System.out.println("url : " + url);
 				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 				Document doc = dBuilder.parse(url);
@@ -59,7 +60,7 @@ public class TheaterAPI {
 				NodeList nList = doc.getElementsByTagName("db");
 				// �Ľ��� ������ �ִ� tag�� ����
 				
-				System.out.println("����Ʈ �� : " + nList.getLength());
+				//System.out.println("����Ʈ �� : " + nList.getLength());
 				// nList�� ��� ������ ��
 				
 				
@@ -197,16 +198,26 @@ public class TheaterAPI {
 	public List<TRankVO> getTRanking(String type){
 		String url = "http://kopis.or.kr/openApi/restful/boxoffice";
 		
-		// ���ó�¥ ���ϱ�
-		Date now = new Date();
+		String today=null;
 		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-		String today = format.format(now);
+		
+		// get standard date
+		if(type.equals("day")) {
+			Calendar temp = Calendar.getInstance();
+			temp.add(Calendar.DATE, -1);
+			today=format.format(temp.getTime());
+		}else {
+
+			Date now = new Date();
+			today = format.format(now);
+		}
+		
 		
 		url = url + "?service="+serviceKey+"&ststype="+type+"&date="+today+"&catecode=AAAA";
 		//http://kopis.or.kr/openApi/restful/boxoffice?service=87bc9b8de1994a3690cd1c296b09b00c&ststype=day&date=20200917&catecode=AAAA
 		//http://kopis.or.kr/openApi/restful/boxoffice?service=87bc9b8de1994a3690cd1c296b09b00c&ststype=month&date=20200917&catecode=AAAA
 		
-		System.out.println(url);
+		//System.out.println("rank url : " + url);
 		try {
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -237,8 +248,11 @@ public class TheaterAPI {
 						tmpR.setTheater_name(getTagValue("prfnm",elem));
 						tmpR.setRank(Integer.parseInt(getTagValue("rnum", elem)));
 						tmpR.setTheater_id(getTagValue("mt20id", elem));
+						String getRankPoster = this.getTheaterInfo(tmpR.getTheater_id()).getPoster_url();
+						System.out.println("get TheaterInfo Poster  "+getRankPoster);
+						tmpR.setPoster_url(getRankPoster);
 						
-						tmpR.setPoster_url(this.getTheaterInfo(tmpR.getTheater_id()).getPoster_url());
+						
 						list.add(tmpR);
 					}
 				}

@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,13 +24,13 @@
       <ul>
         <li><a href="IY_mypage_reservation">예매내역</a></li>
         <li><a href="IY_mypage_point">포인트 내역</a></li>
+        <li><a href="#">게시글 내역</a>
         <li><a href="IY_mypage_edit_user">회원정보</a>
           <ul class="mypage-lnb-depth">
             <li><a href="IY_mypage_edit_user">- 개인정보 변경</a></li>
             <li><a href="IY_mypage_edit_theater">- 선호극장 변경</a></li>
           </ul>
         </li>
-        
       </ul>
     </nav>
   </div>
@@ -38,25 +40,37 @@
     <div class="mypage-main">
       <div class="mypage-home-box">
 		<div class="mypage-home-box-left">
-            <p><strong>유저이름</strong>님</p>
+            <p><strong>${login.name}</strong>님</p>
              <div class="mypage-info-user-point">
-              <p>포인트 : 0000p</p>
+              <p>포인트 : ${login.point}p</p>
             </div>
             <div class="mypage-home-box-link">
-              <a href="#">개인정보 수정 &gt;</a>
-              <a href="#">포인트 내역 확인 &gt;</a>
+              <a href="IY_mypage_edit_user">개인정보 수정 &gt;</a>
+              <a href="IY_mypage_point">포인트 내역 확인 &gt;</a>
             </div>
         </div>
+        
+        <%-- 선호 극장 --%>
         <div class="mypage-home-box-right">
           <div class="mypage-home-box-theater">
             <p>선호극장</p>
-            <a href="#">변경&gt;</a>
+            <a href="IY_mypage_edit_theater">변경&gt;</a>
             
         	  <div class="mypage-home-box-th-items">
                 <div class="mypage-home-box-th-item">
-                  <p><strong>1</strong> 신촌<p>
-                  <p><strong>2</strong> 목동<p>
-                  <p><strong>3</strong> 명동<p>
+                  <c:if test="${empty  login.prefTheater01 }">
+                    <p> 선호 극장을 설정해 주세요</p>
+                  </c:if>
+                  <c:if test="${!empty login.prefTheater01}">
+                    <p><strong>1</strong> ${login.prefTheater01 }<p>
+                    <c:if test="${!empty login.prefTheater01}">
+                    <p><strong>2</strong> ${login.prefTheater02 }<p>
+                  </c:if>
+                  <c:if test="${!empty login.prefTheater01}">
+                    <p><strong>3</strong> ${login.prefTheater03 }<p>
+                  </c:if>
+                  </c:if>
+                  
                 </div>
                 
               </div>

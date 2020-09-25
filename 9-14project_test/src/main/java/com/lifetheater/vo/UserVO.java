@@ -7,19 +7,20 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserVO {
-	private String email;
-	private String pw;
-	private String name;
-	private String regDate;
-	private Integer point;
-	private String userKey;
-	private String membertype;
-	private String phone;
-	private String loginWay;
-	private String prefTheater01;
+	private String email; //이메일
+	private String pw;		//비밀번호
+	private String name;	//이름
+	private String regDate;	//가입날짜
+	private Integer point;	//보유포인트
+	private String userKey;		//인증
+	private char membertype; 	//회원 구분 0:탈퇴,1:일반,2:공연관계자,3:관리자
+	private String phone;	//폰번호
+	private String loginWay;	//로그인 방식  일반,카카오,네이버
+	private String prefTheater01;	//선호극장
 	private String prefTheater02;
 	private String prefTheater03;
-	private Boolean autologin;
-	private Boolean loginsave;
-}
+	
+	  private Boolean autologin; //자동 로그인
+	  private Boolean loginsave; //로그인 정보 저장
+	 }
 

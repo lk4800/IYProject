@@ -51,10 +51,34 @@
 	  h.style.height = "1px";
 	  h.style.height = (12+h.scrollHeight)+"px";
 	}
+	
+	function getParameterByName(name) {
+	    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+	    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+	        results = regex.exec(location.search);
+	    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+	}
+	
+	
 	function delcheck(){
-		var answer = confirm('회원가입을 완료하시겠습니까?');
+		var answer = confirm('게시물을 삭제 할것인가?');
+		var nb_num=getParameterByName("nb_num");
+		
+		const nboardinfo={
+    			nb_num:nb_num
+    	};
 		if(answer){
-			/*삭제 확인시 실행*/
+			$.ajax({
+				type:"post",
+				url:"nbdelete",
+				headers:{"Content-Type":"application/json"},
+				data:JSON.stringify(nboardinfo),
+				dataType:"text",
+				success:function(){
+					alert("게시글 삭제완료")
+					location.href="IY_board_nlist";
+				}
+			})
 		}
 	}
 	

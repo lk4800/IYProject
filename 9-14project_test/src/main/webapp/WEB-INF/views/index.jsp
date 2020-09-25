@@ -123,14 +123,14 @@
   </div>
   <div class="main-rank-category">
     <p class="main-rank-category-tags">
-      <a href="#">#DAY</a>
-      <a href="#">#WEEK</a>
-      <a href="#">#MONTH</a>
+      <a href="#" onclick="loadRanking('day'); return false;">#DAY</a>
+      <a href="#" onclick="loadRanking('week'); return false;">#WEEK</a>
+      <a href="#" onclick="loadRanking('month'); return false;">#MONTH</a>
     </p>
   </div>
-  <div class="main-rank-items">
+  <div class="main-rank-items" id = "main-rank-items">
   <!-- http://kopis.or.kr/openApi/restful/pblprfr/PF166272?service=87bc9b8de1994a3690cd1c296b09b00c -->
-    <div class="main-rank-item">
+    <!-- <div class="main-rank-item">
      <div class="main-rank-item-rtxt">
           <h1>1위</h1>
         </div>
@@ -180,37 +180,44 @@
         </div>
        
       </a>
-    </div>
+    </div> -->
     
-    <div class="main-rank-item">
-     <div class="main-rank-item-rtxt">
-          <h1>1위</h1>
-        </div>
-      <a href="#">
-        <div class="main-rank-item-card">
-          <div class="main-rank-item-inner">
-             <div class="main-rank-item-front">
-            <img src="http://www.kopis.or.kr/upload/pfmPoster/PF_PF166272_200729_104653.JPG" />
-          </div>
-          <div class="main-rank-item-back">
-            <div class="main-rank-item-disctxt">
-            <p class="main-rank-item-tit"><span>Title</span></p>
-            <p class="main-rank-item-detail">상영 장소<p>
-            <p class="main-rank-item-price">price</p>
-            <p class="main-rank-item-date">상영 날짜</p>
-            </div>
-            
-          </div>
-          </div>
-       
-        </div>
-       
-      </a>
-    </div>
+  
   </div>
   
   <script>
-    
+    var rType = "day";
+    loadRanking(rType);
+    function loadRanking(rankCondi){
+    	rType = rankCondi;
+    	 $.getJSON("/controller/lifetheater/main_rank/type="+rType,function(data){
+    		  var str="";
+    		  var rankNum = 1;
+    		  $(data).each(function(){
+    			  str+=
+    			  "<div class='main-rank-item'>"
+    			     +"<div class='main-rank-item-rtxt'>"
+    			          +"<h1>"+(rankNum++)+"위</h1>"
+    			        +"</div>"
+    			      +"<a href='#'>"
+    			        +"<div class='main-rank-item-card'>"
+    			          +"<div class='main-rank-item-inner'>"
+    			             +"<div class='main-rank-item-front'>"
+    			            +"<img src='"+this.poster_url+"'/>"
+    			          +"</div>"
+    			          +"<div class='main-rank-item-back'>"
+    			          +"<div class='main-rank-item-disctxt'>"  
+    			           +"<p class='main-rank-item-tit'><span>"+this.theater_name+"</span></p><br/>" 
+    			            +"<p class='main-rank-item-detail'>"+this.location_name+"</p>"
+    			            +"<p class='main-rank-item-date'>"+this.playtime+"</p>"
+    			            +"</div></div></div></div></a></div>"
+    			  
+    			
+    		  })
+    		  $('#main-rank-items').html(str);
+    	  })
+    }
+ 
   </script>
   
   <div class="main-rank-more">

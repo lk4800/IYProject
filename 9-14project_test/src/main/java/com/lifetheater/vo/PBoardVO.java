@@ -13,4 +13,13 @@ public class PBoardVO {
   private String pb_date;
   private String pb_img_url;
   private String email;
+  
+//페이징(쪽나누기:paging) 관련 변수
+	private int startrow;//시작행 번호
+	private int endrow;//끝행 번호
+	
+	 //검색기능
+	private String keyword;
+	private String condition;
+  
 }

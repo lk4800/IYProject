@@ -1,5 +1,7 @@
 package com.lifetheater.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -85,5 +87,64 @@ public class BoardDAOImpl implements BoardDAO {
 	public void pBoardNoUpdate(FBoardVO fBoardVO) {
 		this.sqlSession.update("fb_NoImgupdate", fBoardVO);
 		
+	}
+	
+
+	@Override
+	public List<FBoardVO> getflist(FBoardVO fboard) {
+		return this.sqlSession.selectList("getflist",fboard);
+	}
+
+
+	@Override
+	public List<PBoardVO> getplist(PBoardVO pboard) {
+		return this.sqlSession.selectList("getplist",pboard);
+	}
+
+
+	@Override
+	public List<NBoardVO> getnlist(NBoardVO nboard) {
+		return this.sqlSession.selectList("getnlist",nboard);
+	}
+
+
+	@Override
+	public String getusername(String email) {
+		return this.sqlSession.selectOne("getusername", email);
+	}
+
+
+	@Override
+	public int getFTotalCount(FBoardVO fboard) {
+		return this.sqlSession.selectOne("F_count",fboard);
+	}
+
+
+	@Override
+	public int getPTotalCount(PBoardVO pboard) {
+		return this.sqlSession.selectOne("P_count",pboard);
+	}
+
+
+	@Override
+	public int getNTotalCount(NBoardVO nboard) {
+		return this.sqlSession.selectOne("N_count",nboard);
+	}
+	
+	@Override
+	public void fBoardDelete(FBoardVO fBoardVO) {
+		this.sqlSession.delete("fBoardDelete", fBoardVO);
+	}
+
+
+	@Override
+	public void pBoardDelete(PBoardVO pBoardVO) {
+		this.sqlSession.delete("pBoardDelete", pBoardVO);
+	}
+
+
+	@Override
+	public void nBoardDelete(NBoardVO nBoardVO) {
+		this.sqlSession.delete("nBoardDelete", nBoardVO);
 	}
 }

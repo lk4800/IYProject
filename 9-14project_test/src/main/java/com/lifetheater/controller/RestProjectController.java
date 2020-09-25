@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -17,6 +18,7 @@ import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,10 +30,16 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
 
+import com.lifetheater.service.BoardService;
+import com.lifetheater.service.GugunService;
 import com.lifetheater.service.RepService;
 import com.lifetheater.service.UserService;
 import com.lifetheater.service.UserSha256;
+import com.lifetheater.vo.FBoardVO;
 import com.lifetheater.vo.FReplyVO;
+import com.lifetheater.vo.GugunVO;
+import com.lifetheater.vo.NBoardVO;
+import com.lifetheater.vo.PBoardVO;
 import com.lifetheater.vo.UserVO;
 
 @RestController
@@ -41,6 +49,11 @@ public class RestProjectController {//ajax로 문자열을 받기위해 사용
 	private UserService user_Service;
 	@Autowired
 	private RepService repService;
+	@Autowired
+	private GugunService gugunService;
+	
+	@Autowired
+	private BoardService bservice;
 
 	@RequestMapping(value="/confirmEmail",method=RequestMethod.POST)
 	public ResponseEntity<String> confiem_email(@RequestBody UserVO user) {//이메일중복확인
@@ -96,9 +109,13 @@ public class RestProjectController {//ajax로 문자열을 받기위해 사용
 				String user_pw = uservo.getPw();
 		 		uservo.setPw(UserSha256.encrypt(user_pw));
 				if(user.getPw().equals(uservo.getPw())) {
+					if(user.getUserKey().equals("hye_ah")) {
 					
 					session.setAttribute("login", user);
 					result="loginok";
+					}else {
+						result="loginno";
+					}
 				}
 					
 					//자동로그인 체크시 발동
@@ -149,7 +166,7 @@ public class RestProjectController {//ajax로 문자열을 받기위해 사용
 		
 		//로그아웃 요청
 		@GetMapping("IY_logout")
-		public ModelAndView logout(HttpSession session, HttpServletResponse response) {
+		public ModelAndView logout(HttpSession session, HttpServletResponse response, HttpServletRequest request) {
 			Cookie loginCookie =new Cookie("loginCookie", null);
 			loginCookie.setPath("/");
 			loginCookie.setMaxAge(0);
@@ -157,7 +174,7 @@ public class RestProjectController {//ajax로 문자열을 받기위해 사용
 			session.invalidate();
 			
 			
-			return new ModelAndView("index");
+			return new ModelAndView("redirect:"+request.getHeader("REFERER"));
 		}
 		
 		//이메일 아이디 찾기 요청
@@ -252,6 +269,35 @@ public class RestProjectController {//ajax로 문자열을 받기위해 사용
 				entity = new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
 			}
 			return entity;
+		}
+			
+		@PostMapping("IY_getGugun")
+		public List<GugunVO> getGugun(@RequestBody int sido_code, Model m){
+			List<GugunVO> glist = this.gugunService.getGugun(sido_code);
+			m.addAttribute("glist",glist);
+			return glist;
+		}
+		
+		@PostMapping("/fbdelete")
+		public void fbdelete(@RequestBody FBoardVO fboard) {
+			System.out.println(fboard.getFb_num());
+			bservice.fBoardDelete(fboard);
+			
+		}
+		
+		@PostMapping("/pbdelete")
+		public void pbdelete(@RequestBody PBoardVO pboard) {
+			System.out.println(pboard.getPb_num());
+			bservice.pBoardDelete(pboard);
+			
+		}
+		
+		@PostMapping("/nbdelete")
+		public void nbdelete(@RequestBody NBoardVO nboard) {
+			System.out.println(nboard.getNb_num());
+			bservice.nBoardDelete(nboard);	
+			
+			
 		}
 		
 		

@@ -42,7 +42,7 @@
 					${fbCont.fb_cont}
 				</div>
 				<div id="board_cont_comCount2">
-				<span>댓글 0</span>
+				<span>댓글  ${totalRep}-</span>
 				</div>
 			</div>
 			<!-- 내용 끝 -->
@@ -152,10 +152,35 @@ $("#board_rep_arpa").hide();
 	  h.style.height = "1px";
 	  h.style.height = (12+h.scrollHeight)+"px";
 	}
+	
+	function getParameterByName(name) {
+	    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+	    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+	        results = regex.exec(location.search);
+	    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+	}
+	
+	
 	function delcheck(){
-		var answer = confirm('게시물을 삭제하시겠습니까?');
-	if(answer){
-			/*삭제 확인시 실행*/
+		var answer = confirm('게시물을 삭제 할것인가?');
+		var fb_num=getParameterByName("fb_num");
+		
+		const fboardinfo={
+    			fb_num:fb_num
+    	};
+		if(answer){
+			$.ajax({
+				type:"post",
+				url:"fbdelete",
+				headers:{"Content-Type":"application/json"},
+				data:JSON.stringify(fboardinfo),
+				dataType:"text",
+				success:function(){
+					alert("게시글 삭제완료")
+					location.href="IY_board_flist";
+					
+				}
+			})
 		}
 	}
 	

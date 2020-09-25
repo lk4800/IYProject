@@ -1,10 +1,11 @@
 package com.lifetheater.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lifetheater.dao.BoardDAO;
-import com.lifetheater.dao.RepDAO;
 import com.lifetheater.vo.FBoardContVO;
 import com.lifetheater.vo.FBoardVO;
 import com.lifetheater.vo.NBoardVO;
@@ -66,5 +67,57 @@ public class BoardServiceImpl implements BoardService {
 		else 
 			this.BoardDao.fBoardUpdate(fBoardVO);
 	}
+	
+	
+	@Override
+	public List<FBoardVO> getflist(FBoardVO fboard) {
+		return this.BoardDao.getflist(fboard);
+	}
+
+	@Override
+	public List<PBoardVO> getplist(PBoardVO pboard) {
+		return this.BoardDao.getplist(pboard);
+	}
+
+	@Override
+	public List<NBoardVO> getnlist(NBoardVO nboard) {
+		return this.BoardDao.getnlist(nboard);
+	}
+
+	@Override
+	public String getusername(String email) {
+		return this.BoardDao.getusername(email);
+	}
+
+	@Override
+	public int getFTotalCount(FBoardVO fboard) {
+		return this.BoardDao.getFTotalCount(fboard);
+	}
+
+	@Override
+	public int getPTotalCount(PBoardVO pboard) {
+		return this.BoardDao.getPTotalCount(pboard);
+	}
+
+	@Override
+	public int getNTotalCount(NBoardVO nboard) {
+		return this.BoardDao.getNTotalCount(nboard);
+	}
+	
+	@Override
+	public void fBoardDelete(FBoardVO fBoardVO) {
+		this.BoardDao.fBoardDelete(fBoardVO);
+	}
+
+	@Override
+	public void pBoardDelete(PBoardVO pBoardVO) {
+		this.BoardDao.pBoardDelete(pBoardVO);
+	}
+
+	@Override
+	public void nBoardDelete(NBoardVO nBoardVO) {
+		this.BoardDao.nBoardDelete(nBoardVO);
+	}
+	
 	
 }

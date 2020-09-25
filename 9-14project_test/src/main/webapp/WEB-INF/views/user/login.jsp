@@ -260,9 +260,12 @@
 		    			console.log(data=="loginok");
 		    			if(data=="loginok"){
 		    				alert(email+"님 환영합니다.");
-		    				location.href="lifetheater";
+		    				location.href=history.go(-1);
 		    				
 		    			}else{
+		    				if(data=="loginno"){
+		    					alert("이메일 인증을 해주세요.")
+		    				}
 		    				if(data=="pwfail"){
 		    					alert("비밀번호가 틀렸습니다.")
 		    				}else{

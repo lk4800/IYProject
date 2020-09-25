@@ -1,10 +1,12 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <meta charset="UTF-8">
     <head>
     	<meta charset="UTF-8">
       <title>게시판 목록</title>
+      <script type="text/javascript" src="./resources/JavaScript/jquery.js"></script> 
       <link rel="stylesheet" href="./resources/css/board.css">
     </head>
     <body>
@@ -24,7 +26,7 @@
     		</div>	
     		</div>
         	<div>
-          	  <div class="board_list">
+          	  <div class="board_list" >
             	    <div class="board_list_head">
               	      <div class="board_num">번호</div>
                 	    <div class="board_tit">제목</div>
@@ -32,71 +34,115 @@
                     	<div class="board_date">작성일</div>
                     	<div class="board_view">조회</div>
                 	</div>
+                	<c:if test="${flist.size() <= 0}">
+							<div class="NoSelectBox" style="text-align: center;">
+								<strong>게시물이 없습니다!!</strong>
+							</div>
+							
+						</c:if>
                 	<div class="board_list_body">
-                    <div class="board_item">
-                      <div class="board_num">5</div>
-                      <div class="board_tit"><a href="#">혜진이와 아이들이</a></div>
-                      <div class="board_writer">관리자</div>
-                      <div class="board_date">2019-11-20</div>
-                      <div class="board_view">111</div>
+                	<c:if test="${flist.size() > 0}">
+                	<c:forEach var="fb" items="${flist}" >
+                    <div class="board_item" >
+                      <div class="board_num">${fb.fb_num}</div>
+                      <div class="board_tit"><a href="IY_board_fcont?fb_num=${fb.fb_num}">${fb.fb_title}</a></div>
+                      <div class="board_writer">${fb.email}</div>
+                      <div class="board_date">${fb.fb_date}</div>
+                      <div class="board_view">${fb.fb_hit}</div>
                     </div>
-                    <div class="board_item">
-                      <div class="board_num">4</div>
-                      <div class="board_tit"><a href="#">html과 css로 웹사이트를 만들어요.</a></div>
-                      <div class="board_writer">관리자</div>
-                      <div class="board_date">2019-11-12</div>
-                      <div class="board_view">222</div>
-                    </div>
-                    <div class="board_item">
-                      <div class="board_num">3</div>
-                      <div class="board_tit"><a href="#">코딩은 안즐거워요.</a></div>
-                      <div class="board_writer">관리자</div>
-                      <div class="board_date">2019-11-02</div>
-                      <div class="board_view">333</div>
-                    </div>
-                    <div class="board_item">
-                      <div class="board_num">2</div>
-                      <div class="board_tit"><a href="#">인생연극</a></div>
-                      <div class="board_writer">관리자</div>
-                      <div class="board_date">2019-10-28</div>
-                      <div class="board_view">222</div>
-                    </div>
-                    <div class="board_item">
-                      <div class="board_num">1</div>
-                      <div class="board_tit"><a href="#">게시판</a></div>
-                      <div class="board_writer">관리자</div>
-                      <div class="board_date">2019-10-24</div>
-                      <div class="board_view">111</div>
-                    </div>
+                    </c:forEach>
+                    </c:if>
                 </div>
             </div>
             <div class="board_search_form">
-            	<input type="text" id="board_search"/>
-            	<select id="board_select_list">
-            		<option value="제목" selected="selected">제목</option>
- 								<option value="내용">내용</option>
-  							<option value="제목+내용">제목+내용</option>
+            <select id="board_select_list" name="condition">
+            		<option value="fb_title" <c:if test="${condition=='fb_title'}">
+   ${'selected'}</c:if>>제목</option>
+ 								<option value="fb_cont" <c:if test="${condition=='fb_cont'}">
+   ${'selected'}</c:if>>내용</option>
+  							<option value="fb_title_cont" <c:if test="${condition=='fb_title_cont'}">
+   ${'selected'}</c:if>>제목+내용</option>
             	</select>
-            	<button>검색</button>
+            	<input name="find_name" id="board_search" value="${keyword}"/>
+            	<input type="button" id="searchflist" value="검색"/>
             </div>
             <div class="board_paging">
-              <a href="#" class="board_bt board_first">처음 페이지</a>
-              <a href="#" class="board_bt board_prev">이전 페이지</a>
-              <a href="#" class="board_num on">1</a>
-              <a href="#" class="board_num">2</a>
-              <a href="#" class="board_num">3</a>
-              <a href="#" class="board_num">4</a>
-              <a href="#" class="board_num">5</a>
-              <a href="#" class="board_num">6</a>
-              <a href="#" class="board_num">7</a>
-              <a href="#" class="board_num">8</a>
-              <a href="#" class="board_num">9</a>
-              <a href="#" class="board_num">10</a>
-              <a href="#" class="board_bt board_next">다음 페이지</a>
-              <a href="#" class="board_bt board_last">마지막 페이지</a>
+            <%-- 검색전 페이징 --%> 
+            <c:if test="${(empty condition) && (empty keyword)}">  
+              <c:if test="${page>1}">
+              <a href="IY_board_flist?page=${startpage}" class="board_bt board_first">처음 페이지</a>
+              <a href="IY_board_flist?page=${page-1}" class="board_bt board_prev">이전 페이지</a>
+              </c:if>
+              <c:forEach var="f" begin="${startpage}" end="${endpage}" step="1">
+              <c:if test="${f==page}">
+              <a class="board_num on">${f}</a>
+              </c:if>
+              <c:if test="${f!=page}">
+              <a href="IY_board_flist?page=${f}" class="board_num">${f}</a>
+              </c:if>
+              </c:forEach>
+              
+              
+         
+              <c:if test="${page<maxpage}">
+               <a href="IY_board_flist?page=${page+1}" class="board_bt board_next">다음 페이지</a>
+              <a href="IY_board_flist?page=${endpage}" class="board_bt board_last">마지막 페이지</a>
+              </c:if>
+              </c:if>
+              
+              <%-- 검색후 페이징 --%>
+ <c:if test="${(!empty condition) || (!empty keyword)}">    
+          <c:if test="${page>1}">
+              <a href="IY_board_flist?page=${startpage}&condition=${condition}&keyword=${keyword}" class="board_bt board_first">처음 페이지</a>
+              <a href="IY_board_flist?page=${page-1}&condition=${condition}&keyword=${keyword}" class="board_bt board_prev">이전 페이지</a>
+              </c:if>
+              <c:forEach var="f" begin="${startpage}" end="${endpage}" step="1">
+              <c:if test="${f==page}">
+              <a class="board_num on">${f}</a>
+              </c:if>
+              <c:if test="${f!=page}">
+              <a href="IY_board_flist?page=${f}&condition=${condition}&keyword=${keyword}" class="board_num">${f}</a>
+              </c:if>
+              </c:forEach>
+              
+              
+         
+              <c:if test="${page<maxpage}">
+               <a href="IY_board_flist?page=${page+1}&condition=${condition}&keyword=${keyword}" class="board_bt board_next">다음 페이지</a>
+              <a href="IY_board_flist?page=${endpage}&condition=${condition}&keyword=${keyword}" class="board_bt board_last">마지막 페이지</a>
+    </c:if>
+</c:if>   
             </div>
         </div>
       </div>
       	<jsp:include page="../../include/footer.jsp" />
+      	
+      	<script type="text/javascript">
+      	
+      	$(function() {
+      	$("#searchflist").click(function() {
+			console.log("검색 버튼이 클릭됨!");
+			const keyword = $("#board_search").val();
+			console.log("검색어: " + keyword);
+			
+			const condition = $("#board_select_list option:selected").val();
+			console.log("검색 조건: " + condition);
+			
+			if(keyword==''){
+				alert("검색어를 입력해주세요");
+			}else{
+				location.href="IY_board_flist?keyword="+keyword
+				+"&condition=" + condition;
+			}
+			
+			
+		
+			
+		});
+      	});
+      	
+      	
+      	
+      	</script>
     </body>
 </html>

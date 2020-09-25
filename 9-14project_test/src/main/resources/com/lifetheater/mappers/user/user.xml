@@ -72,7 +72,7 @@ select email from tbl_inyeon_user where email=#{email}
 </select>
 
 <insert id="naverinsert" >
-insert into tbl_inyeon_user (email,pw,name,reg_date,user_key,membertype,phone,login_way) values (#{email},'12345678912345',#{name},sysdate,'hye_ah','1','2','2')
+insert into tbl_inyeon_user (email,pw,name,reg_date,user_key,membertype,phone,login_way) values (#{email},'12345678912345',#{name},sysdate,'hye_ah',1,2,2)
 </insert>
 
 <update id="naverupdate">
@@ -84,7 +84,7 @@ select email from tbl_inyeon_user where email=#{email}
 </select>
 
 <insert id="kakaoinsert">
-insert into tbl_inyeon_user (email,pw,name,reg_date,user_key,membertype,phone,login_way) values (#{email},'12345678912345',#{nickname},sysdate,'hye_ah','1','2','3')
+insert into tbl_inyeon_user (email,pw,name,reg_date,user_key,membertype,phone,login_way) values (#{email},'12345678912345',#{nickname},sysdate,'hye_ah',1,2,3)
 </insert>
 
 <update id="kakaoupdate">

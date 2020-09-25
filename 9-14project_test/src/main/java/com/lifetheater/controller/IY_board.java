@@ -1,12 +1,16 @@
 package com.lifetheater.controller;
 
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -31,7 +35,52 @@ public class IY_board {
 	 */
 	
 	@GetMapping("/IY_board_flist")
-	public String board_flist(){
+	public String board_flist(Model model,HttpServletRequest request,@ModelAttribute FBoardVO fboard){
+		int page=1;
+		int limit=10;
+		if(request.getParameter("page")!=null) {
+			page=Integer.parseInt(request.getParameter("page"));
+		}
+		String condition = fboard.getCondition();
+		String keyword=fboard.getKeyword();
+	
+		
+		model.addAttribute("condition", condition);
+		model.addAttribute("keyword", keyword);
+		
+		
+		fboard.setStartrow((page-1)*10+1);//시작행 번호
+		fboard.setEndrow(fboard.getStartrow()+limit-1);//끝행번호
+		
+		int totalCount=this.Service.getFTotalCount(fboard);//총게시물수
+		
+		System.out.println(totalCount);
+			
+		
+		List<FBoardVO> list=Service.getflist(fboard);
+		List<FBoardVO> flist=new ArrayList<FBoardVO>();
+		
+		int maxpage=(int)((double)totalCount/limit+0.95);
+		int startpage=(((int)((double)page/10+0.9))-1)*10+1;
+		int endpage=maxpage;
+		if(endpage>startpage+10-1) endpage=startpage+10-1;
+		
+		model.addAttribute("totalCount",totalCount);
+		request.setAttribute("list", list);
+		model.addAttribute("startpage", startpage);
+		model.addAttribute("endpage", endpage);
+		model.addAttribute("maxpage", maxpage);
+		model.addAttribute("page", page);
+		
+		int count=0;
+		for(FBoardVO f:list) {
+			f.setEmail(Service.getusername(f.getEmail()));
+			flist.add(count, f);
+			count+=1;
+			System.out.println(f.getKeyword());
+		}
+		
+		model.addAttribute("flist", flist);
 		return "board/board_flist";
 	}
 	@GetMapping("/IY_board_fwrite")
@@ -59,7 +108,50 @@ public class IY_board {
 	}
 
 	@GetMapping("/IY_board_plist")
-	public String board_plist(){
+	public String board_plist(Model model,HttpServletRequest request,@ModelAttribute PBoardVO pboard){
+		int page=1;
+		int limit=10;
+		if(request.getParameter("page")!=null) {
+			page=Integer.parseInt(request.getParameter("page"));
+		}
+		
+		
+		String condition = pboard.getCondition();
+		String keyword=pboard.getKeyword();
+	
+		
+		model.addAttribute("condition", condition);
+		model.addAttribute("keyword", keyword);
+		
+		pboard.setStartrow((page-1)*10+1);//시작행 번호
+		pboard.setEndrow(pboard.getStartrow()+limit-1);//끝행번호
+		
+		int totalCount=this.Service.getPTotalCount(pboard);//총게시물수
+		
+		
+		
+		List<PBoardVO> list=Service.getplist(pboard);
+		List<PBoardVO> plist=new ArrayList<PBoardVO>();
+		
+		int maxpage=(int)((double)totalCount/limit+0.95);
+		int startpage=(((int)((double)page/10+0.9))-1)*10+1;
+		int endpage=maxpage;
+		if(endpage>startpage+10-1) endpage=startpage+10-1;
+		
+		model.addAttribute("totalCount",totalCount);
+		request.setAttribute("list", list);
+		model.addAttribute("startpage", startpage);
+		model.addAttribute("endpage", endpage);
+		model.addAttribute("maxpage", maxpage);
+		model.addAttribute("page", page);
+		
+		int count=0;
+		for(PBoardVO p:list) {
+			p.setEmail(Service.getusername(p.getEmail()));
+			plist.add(count, p);
+			count+=1;
+		}
+		model.addAttribute("plist", plist);
 		return "board/board_plist";
 	}
 	@GetMapping("/IY_board_pwrite")
@@ -76,7 +168,49 @@ public class IY_board {
 	}
 	
 	@GetMapping("/IY_board_nlist")
-	public String board_nlist(){
+	public String board_nlist(Model model,HttpServletRequest request,@ModelAttribute NBoardVO nboard){
+		int page=1;
+		int limit=10;
+		if(request.getParameter("page")!=null) {
+			page=Integer.parseInt(request.getParameter("page"));
+		}
+		
+		String condition = nboard.getCondition();
+		String keyword=nboard.getKeyword();
+	
+		
+		model.addAttribute("condition", condition);
+		model.addAttribute("keyword", keyword);
+		
+		nboard.setStartrow((page-1)*10+1);//시작행 번호
+		nboard.setEndrow(nboard.getStartrow()+limit-1);//끝행번호
+		
+		int totalCount=this.Service.getNTotalCount(nboard);//총게시물수
+		
+		
+		List<NBoardVO> list=Service.getnlist(nboard);
+		List<NBoardVO> nlist=new ArrayList<NBoardVO>();
+		
+		int maxpage=(int)((double)totalCount/limit+0.95);
+		int startpage=(((int)((double)page/10+0.9))-1)*10+1;
+		int endpage=maxpage;
+		if(endpage>startpage+10-1) endpage=startpage+10-1;
+		
+		model.addAttribute("totalCount",totalCount);
+		request.setAttribute("list", list);
+		model.addAttribute("startpage", startpage);
+		model.addAttribute("endpage", endpage);
+		model.addAttribute("maxpage", maxpage);
+		model.addAttribute("page", page);
+		
+		int count=0;
+		for(NBoardVO n:list) {
+			n.setEmail(Service.getusername(n.getEmail()));
+			nlist.add(count, n);
+			count+=1;
+		}
+		model.addAttribute("nlist", nlist);
+		
 		return "board/board_nlist";
 	}
 	@GetMapping("/IY_board_nwrite")
