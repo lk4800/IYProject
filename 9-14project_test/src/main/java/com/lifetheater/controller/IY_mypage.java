@@ -1,6 +1,7 @@
 package com.lifetheater.controller;
 
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -12,15 +13,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.lifetheater.service.BoardService;
 import com.lifetheater.service.RepService;
+import com.lifetheater.vo.FBoardVO;
 import com.lifetheater.vo.UserVO;
 
 @Controller
 public class IY_mypage {
 
 	@Autowired
-	private BoardService Service;
+	private BoardService boardService;
 	@Autowired
 	private RepService repService;
+	
 	
 	@GetMapping("IY_mypage_edit_user")
 	public String mypage_edit_user() {
@@ -61,7 +64,10 @@ public class IY_mypage {
 			m.addAttribute("login",user);
 			
 			// 자유 게시글 목록
-			
+			FBoardVO fBoard = new FBoardVO();
+			fBoard.setEmail(userEmail);
+			List<FBoardVO> list = boardService.getflist(fBoard);
+			m.addAttribute("boardlist",list);
 			
 		}
 		else if(user.getMembertype()=='2') {

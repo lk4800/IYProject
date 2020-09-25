@@ -249,7 +249,7 @@ public class TheaterAPI {
 						tmpR.setRank(Integer.parseInt(getTagValue("rnum", elem)));
 						tmpR.setTheater_id(getTagValue("mt20id", elem));
 						String getRankPoster = this.getTheaterInfo(tmpR.getTheater_id()).getPoster_url();
-						System.out.println("get TheaterInfo Poster  "+getRankPoster);
+						//System.out.println("get TheaterInfo Poster  "+getRankPoster);
 						tmpR.setPoster_url(getRankPoster);
 						
 						

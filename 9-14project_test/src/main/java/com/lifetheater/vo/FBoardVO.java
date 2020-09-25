@@ -19,6 +19,6 @@ public class FBoardVO {
 	private int endrow;//끝행 번호
 	
 	 //검색기능
-	private String keyword;
-	private String condition;
+	private String keyword;	// 검색어
+	private String condition; //조건
 }

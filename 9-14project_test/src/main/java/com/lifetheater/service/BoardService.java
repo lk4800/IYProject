@@ -37,6 +37,8 @@ public interface BoardService{
 		
 		int getNTotalCount(NBoardVO nboard);// N 총게시물수
 		
+		
+	
 		//게시판에서 사용할 작성자 이름을 가져오기
 		String getusername(String email);
 		

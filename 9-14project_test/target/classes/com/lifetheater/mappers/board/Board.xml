@@ -67,6 +67,9 @@ fb_cont like #{keyword}
 <if test="condition=='fb_title_cont'">
 fb_title like concat('%'||#{keyword},'%') or fb_cont like concat('%'||#{keyword},'%')
 </if>
+<if test="condition=='fb_email'">
+  email = {keyword}
+</if>
 </where>
 order by fb_num desc))
 where rNum &gt;=#{startrow} and rNum &lt;=#{endrow}

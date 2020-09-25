@@ -135,8 +135,12 @@
         <div class="mypage-table">
           <table border="1">
             <tr><th class="mypage-table-bno">번호</th><th class="mypage-table-btit">제목</th><th class="mypage-table-bdate">작성일</th><th class="mypage-table-bhit">조회수</th></tr>
-            
-            <tr><th colspan="4"> 목록이 없습니다</th></tr>
+            <c:if test="${empty boardlist}">
+            <tr><th colspan="4"> 목록이 없습니다~<br/><a href="#">글쓰러가기</a></th></tr>
+            </c:if>
+            <c:if test="${!empty boardlist}">
+              <tr><th colspan="4">목록이 있습니다.</th></tr>
+            </c:if>
           </table>
         </div>
       </div>
