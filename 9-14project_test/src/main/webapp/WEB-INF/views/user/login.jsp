@@ -267,7 +267,8 @@
 		    				}
 		    				if(data=="pwfail"){
 		    					alert("비밀번호가 틀렸습니다.")
-		    				}else{
+		    				}
+						if(data==""){
 		    					alert("아이디가 존재하지 않습니다.")
 		    				}
 		    				
