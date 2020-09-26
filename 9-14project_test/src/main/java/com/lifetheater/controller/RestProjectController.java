@@ -116,7 +116,7 @@ public class RestProjectController {//ajax로 문자열을 받기위해 사용
 					}else {
 						result="loginno";
 					}
-				}
+				
 					
 					//자동로그인 체크시 발동
 					if(uservo.getAutologin()) {
@@ -159,7 +159,7 @@ public class RestProjectController {//ajax로 문자열을 받기위해 사용
 					result="pwfail";
 				}
 			}
-			
+		}
 			return result;
 	
 }	
