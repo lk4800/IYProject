@@ -11,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.lifetheater.service.UserService;
 import com.lifetheater.service.UserSha256;
@@ -55,9 +58,16 @@ public class IY_user {
 		return "user/moreinfo";
 	}
 	
-	@GetMapping("/IY_pw_update_page")
-	public String pw_update() {
-		return "user/pw_update";
+	@PostMapping("IY_pw_update_page")
+	public ModelAndView pw_update_page() {
+		return new ModelAndView("user/pw_update");
+	}
+
+	
+	@GetMapping("IY_pw_update_page")
+	public void pw_update() {
+		System.out.println("여기가");
+		
 	}
 	
 	@PostMapping("/checkEmail")

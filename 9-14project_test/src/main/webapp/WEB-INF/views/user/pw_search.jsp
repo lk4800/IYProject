@@ -118,7 +118,12 @@ $("#btnpwinfo").click(function(){
 			//비밀번호 변경페이지
 			if(get=="ok"){
 				alert(get);
-				location.href="IY_pw_update_page?email="+email;
+				var f=document.paging; 
+			    f.action="user/pw_update";
+			    f.method="post";
+			    f.submit();
+
+	
 			}else{
 				alert("부적절");
 			}
