@@ -53,53 +53,12 @@
           </div>
         </div>
       </a>
-    </div>
-     <div class="main-reco-item">
-      <a href="#">
-        <div class="main-reco-item-box">
-          <img src="http://www.kopis.or.kr/upload/pfmPoster/PF_PF166713_200811_102846.jpg" />
-          <div class="main-reco-item-box-txt">
-            <p> 연극 제목 </p>
-          </div>
-        </div>
-      </a>
-    </div>
-    <div class="main-reco-item">
-      <a href="#">
-        <div class="main-reco-item-box">
-          <img src="http://www.kopis.or.kr/upload/pfmPoster/PF_PF166703_200811_100830.jpg" />
-          <div class="main-reco-item-box-txt">
-            <p> 연극 제목 </p>
-          </div>
-        </div>
-      </a>
-    </div>
-      <div class="main-reco-item">
-      <a href="#">
-        <div class="main-reco-item-box">
-          <img src="http://www.kopis.or.kr/upload/pfmPoster/PF_PF166670_200810_112513.gif" />
-          <div class="main-reco-item-box-txt">
-            <p> 연극 제목 </p>
-          </div>
-        </div>
-      </a>
-    </div> -->
+    </div>-->
   </div>
 </div>
 
 <script>
-  /* $.ajax({
-	  url:"/lifetheater/main_reco",
-	  type:"POST",
-	  dataType:"json",
-	  success:function(data){
-			   
-		 	alert("success");
-	  },
-	  error:function(){
-		  alert("error");
-	  }
-  }) */
+  
   $.getJSON("/controller/lifetheater/main_reco",function(data){
 	  var str="";
 	  $(data).each(function(){
@@ -154,33 +113,7 @@
         </div>
        
       </a>
-    </div>
-    
-    <div class="main-rank-item">
-     <div class="main-rank-item-rtxt">
-          <h1>1위</h1>
-        </div>
-      <a href="#">
-        <div class="main-rank-item-card">
-          <div class="main-rank-item-inner">
-             <div class="main-rank-item-front">
-            <img src="http://www.kopis.or.kr/upload/pfmPoster/PF_PF166272_200729_104653.JPG" />
-          </div>
-          <div class="main-rank-item-back">
-            <div class="main-rank-item-disctxt">
-            <p class="main-rank-item-tit"><span>Title</span></p>
-            <p class="main-rank-item-detail">상영 장소<p>
-            <p class="main-rank-item-price">price</p>
-            <p class="main-rank-item-date">상영 날짜</p>
-            </div>
-            
-          </div>
-          </div>
-       
-        </div>
-       
-      </a>
-    </div> -->
+    </div>-->
     
   
   </div>
@@ -212,7 +145,7 @@
     			            +"<p class='main-rank-item-date'>"+this.playtime+"</p>"
     			            +"</div></div></div></div></a></div>"
     			  
-    			
+    			if(rankNum>3)return false;
     		  })
     		  $('#main-rank-items').html(str);
     	  })
