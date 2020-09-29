@@ -140,7 +140,7 @@
             </c:if>
             <c:if test="${!empty boardlist}">
               <c:forEach var="board" items="${boardlist}">
-                <tr><th>${board.fb_num}</th><th>${board.fb_title}</th><th>${board.fb_date}</th><th>${board.fb_hit}</th></tr>
+                <tr><th>${board.fb_num}</th><th><a href="IY_board_fcont?fb_num=${board.fb_num}">${board.fb_title}</a></th><th>${board.fb_date}</th><th>${board.fb_hit}</th></tr>
               </c:forEach> 
             </c:if>
           </table>

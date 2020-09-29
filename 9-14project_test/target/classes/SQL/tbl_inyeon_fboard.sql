@@ -44,6 +44,8 @@ primary key(a),
 drop table abcde;
 
 
-
+select * from (select rowNum rNum,fb_title,fb_cont,fb_hit,fb_date,fb_img_url,email from (
+select * from tbl_inyeon_fboard where email='wlghksl12@daum.net' order by fb_num desc))
+where rNum>=1 and rNum<=3
 
 

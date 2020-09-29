@@ -79,7 +79,7 @@ public class IY_mypage {
 			// 자유 게시글 목록
 			FBoardVO fBoard = new FBoardVO();
 			fBoard.setEmail(userEmail);
-			fBoard.setCondition("fb_eamil");
+			fBoard.setCondition("fb_email");
 			fBoard.setKeyword(userEmail);
 			fBoard.setStartrow(1);
 			fBoard.setEndrow(3);// endrow need to set limit and calc
