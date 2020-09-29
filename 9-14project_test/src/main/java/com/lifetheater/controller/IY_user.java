@@ -48,27 +48,13 @@ public class IY_user {
 	}
 	@GetMapping("/IY_login")
 	public String login(HttpSession session) { //로그인 페이지
-		if(session.getAttribute("login")==null) {
 			return "user/login";
-		}
-		return "lifetheater";
 	}
 	@GetMapping("/IY_moreinfo")
 	public String moreinfo() {
 		return "user/moreinfo";
 	}
-	
-	@PostMapping("IY_pw_update_page")
-	public ModelAndView pw_update_page() {
-		return new ModelAndView("user/pw_update");
-	}
 
-	
-	@GetMapping("IY_pw_update_page")
-	public void pw_update() {
-		System.out.println("여기가");
-		
-	}
 	
 	@PostMapping("/checkEmail")
 	public String checkEmail(UserVO user,HttpServletRequest request, String e_mail, HttpServletResponse response_email) throws IOException{

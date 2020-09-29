@@ -180,7 +180,7 @@
 					chk2 = false;
 				}		         
 				//비밀번호 유효성검사
-				else if(!getPwCheck.test($("#pw").val()) || $("#pw").val().length < 8){
+				else if(!getPwCheck.test($("#pw").val()) || $("#pw").val().length < 8 || $("#pw").val().length > 14){
 				    $('#pw').css("background-color", "pink");
 					$('#pwd_ch').html('<b style="font-size:16px;color:red;">[특수문자 포함 8자이상으로 작성해주세요!]</b>');
 					chk2 = false;

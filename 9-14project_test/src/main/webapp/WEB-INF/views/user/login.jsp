@@ -260,19 +260,21 @@
 		    			console.log(data=="loginok");
 		    			if(data=="loginok"){
 		    				alert(email+"님 환영합니다.");
+		    				if(document.referrer=='http://localhost:8011/controller/IY_id_search'||document.referrer=='http://localhost:8011/controller/IY_pw_search'){
+		    					location.href='lifetheater';
+		    				}else{
 		    				location.href=document.referrer;
+		    				}
 		    			}else{
 		    				if(data=="loginno"){
 		    					alert("이메일 인증을 해주세요.")
 		    				}
 		    				if(data=="pwfail"){
 		    					alert("비밀번호가 틀렸습니다.")
-<<<<<<< HEAD
-		    				}if(data==""){
-=======
+
 		    				}
-						if(data==""){
->>>>>>> 1fa2664da21fdaa21e64a069524db0130fe7fcc1
+							if(data==""){
+
 		    					alert("아이디가 존재하지 않습니다.")
 		    				}
 		    				

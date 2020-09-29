@@ -91,7 +91,7 @@
 										</div>
 										<div class="board_cont_rep_info">
 											<span class="board_cont_rep_rep_name">${r.fb_reply_reply_name}</span>
-											<span class="board_cont_rep_rep_cont">${r.fb_reply_reply_cont}</span>
+											<%-- <span class="board_cont_rep_rep_cont">${r.fb_reply_reply_cont}</span> --%>
 										</div>
 										<div class="board_cont_comment_contBox">
 											<span class="board_cont_comment_content"><pre>${r.fb_reply_cont}</pre></span>
