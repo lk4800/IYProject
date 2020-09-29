@@ -42,7 +42,7 @@
       </div>
       <div class="clear"></div>
       <div class="mypage-point-box">
-        <p>회원이름 님의 사용가능 포인트 <b>0000P</b></p>
+        <p><strong>${login.name}</strong> 님의 사용가능 포인트 <b>${login.point}P</b></p>
       </div>
     </div>
     <div class="mypage-point-search-wrap">

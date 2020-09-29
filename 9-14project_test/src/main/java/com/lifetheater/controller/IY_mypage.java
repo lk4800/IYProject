@@ -1,6 +1,7 @@
 package com.lifetheater.controller;
 
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -30,7 +31,19 @@ public class IY_mypage {
 		return "mypage/mypage_edit_user";
 	}
 	@GetMapping("IY_mypage_point")
-	public String mypage_point() {
+	public String mypage_point(HttpSession session,HttpServletResponse response)throws Exception {
+		
+		UserVO user = (UserVO)session.getAttribute("login");
+		if(user==null) {
+			response.setContentType("text/html; charset=UTF-8");
+
+		   PrintWriter out = response.getWriter();
+		   out.println("<script>alert('로그인이 필요한 서비스입니다.');"
+		   		+ "location.href='/controller/IY_login'</script>");
+		   return null;
+		}
+		
+		
 		return "mypage/mypage_point";
 	}
 	@GetMapping("IY_mypage_reservation")
@@ -55,7 +68,7 @@ public class IY_mypage {
 		}
 		
 		String userEmail = user.getEmail();
-		
+		System.out.println("mypage user email : " + userEmail);
 		// membertype -> Normarl이면
 		if(user.getMembertype()=='1') {
 			// 예매매내역
@@ -66,7 +79,18 @@ public class IY_mypage {
 			// 자유 게시글 목록
 			FBoardVO fBoard = new FBoardVO();
 			fBoard.setEmail(userEmail);
+			fBoard.setCondition("fb_eamil");
+			fBoard.setKeyword(userEmail);
+			fBoard.setStartrow(1);
+			fBoard.setEndrow(3);// endrow need to set limit and calc
+			/*
+			 * fboard.setStartrow((page-1)*10+1);//시작행 번호
+			 * fboard.setEndrow(fboard.getStartrow()+limit-1);//끝행번호
+			 */			
 			List<FBoardVO> list = boardService.getflist(fBoard);
+			//System.out.println("board List size : " + list.size());
+			
+			// list set limit under 3
 			m.addAttribute("boardlist",list);
 			
 		}

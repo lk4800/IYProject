@@ -242,7 +242,7 @@ public class TheaterAPI {
 						Element elem = (Element)tmpN;
 						TRankVO tmpR = new TRankVO();
 						
-						tmpR.setLocation(getTagValue("area",elem));
+						//tmpR.setLocation(getTagValue("area",elem));//해당 태그가 있는 것도 없는것도 있음
 						tmpR.setPlaytime(getTagValue("prfpd", elem));
 						tmpR.setLocation_name(getTagValue("prfplcnm",elem));
 						tmpR.setTheater_name(getTagValue("prfnm",elem));

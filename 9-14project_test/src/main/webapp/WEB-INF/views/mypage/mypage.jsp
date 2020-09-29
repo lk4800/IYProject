@@ -139,7 +139,9 @@
             <tr><th colspan="4"> 목록이 없습니다~<br/><a href="#">글쓰러가기</a></th></tr>
             </c:if>
             <c:if test="${!empty boardlist}">
-              <tr><th colspan="4">목록이 있습니다.</th></tr>
+              <c:forEach var="board" items="${boardlist}">
+                <tr><th>${board.fb_num}</th><th>${board.fb_title}</th><th>${board.fb_date}</th><th>${board.fb_hit}</th></tr>
+              </c:forEach> 
             </c:if>
           </table>
         </div>

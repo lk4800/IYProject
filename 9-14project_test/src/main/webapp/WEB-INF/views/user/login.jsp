@@ -267,7 +267,12 @@
 		    				}
 		    				if(data=="pwfail"){
 		    					alert("비밀번호가 틀렸습니다.")
+<<<<<<< HEAD
 		    				}if(data==""){
+=======
+		    				}
+						if(data==""){
+>>>>>>> 1fa2664da21fdaa21e64a069524db0130fe7fcc1
 		    					alert("아이디가 존재하지 않습니다.")
 		    				}
 		    				
