@@ -42,7 +42,7 @@
 					${fbCont.fb_cont}
 				</div>
 				<div id="board_cont_comCount2">
-				<span>댓글  ${totalRep}-</span>
+				<span>댓글  ${totalRep}</span>
 				</div>
 			</div>
 			<!-- 내용 끝 -->
@@ -170,8 +170,11 @@
 					</c:if>
 					<div class="board_cont_btnBox"> <!-- 목록버튼 -->
 						<button class="board_cont_listbtn" onclick="location='IY_board_flist'">목록</button>
+						<!-- 로그인된 회원의 이메일 equlas 게시글 작성자의 이메일  => 수정,삭제 버튼 표시하기-->
+						<c:if test="${login.email eq fbCont.email}">
 						<button class="board_cont_delbtn" onclick="delcheck();">삭제</button>
 						<button class="board_cont_editbtn" onclick="location='IY_fboardEdit?fb_num=${fbCont.fb_num}'">수정</button>
+						</c:if>
 					</div>
 					<div class="clear"></div>
 				</div>

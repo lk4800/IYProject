@@ -93,6 +93,8 @@ public class IY_board {
 	}
 	@GetMapping("IY_board_fcont")
 	public String board_fcont(int fb_num,Model m) {
+		
+	
 		FBoardContVO fbCont = this.Service.selectFBCont(fb_num);
 		List<FRepContVO> frContList = this.repService.selectFreCont(fb_num);
 		

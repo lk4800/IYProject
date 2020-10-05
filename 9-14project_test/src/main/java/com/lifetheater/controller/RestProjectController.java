@@ -108,7 +108,8 @@ public class RestProjectController {//ajax로 문자열을 받기위해 사용
 			
 			//정보가 일치할시 로그인 성공
 			if(user!=null) {
-				if((user.getLoginWay()).length()==1) {
+				System.out.println(user.getLoginWay());
+				if(user.getLoginWay().equals("1")) {
 				String user_pw = uservo.getPw();
 		 		uservo.setPw(UserSha256.encrypt(user_pw));
 				if(user.getPw().equals(uservo.getPw())) {
@@ -308,6 +309,8 @@ public class RestProjectController {//ajax로 문자열을 받기위해 사용
 			System.out.println(freply);
 			repService.fReplyDelete(freply);
 		}
+		
+		
 		
 		
 		

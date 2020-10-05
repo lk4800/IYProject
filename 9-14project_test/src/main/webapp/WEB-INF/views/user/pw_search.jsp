@@ -119,56 +119,55 @@ $("#btnpwinfo").click(function(){
 			//비밀번호 변경페이지
 			if(get=="ok"){
 				alert(get);
-				
 				$("#searchIDPW_p_wrap").html(		
-					'<div class="IYTab_botCont"></div>'
-					+'<div class="IYIptRow"><span id="spanEmailMemNm"'
-					+'class="IYIpt m_size ipt_wSizeF focus_blue">'
-					+'<input id="txtPw" type="password" placeholder="비밀번호"></span></div>'
-					+'<div class="IYIptRow row_btnR_120 mgt10">'
-					+'<span id="spanEMail" class="IYIpt m_size ipt_wSizeF focus_blue">'
-					+'<input id="txtPwMatch" type="password" placeholder="비밀번호 확인"></span></div>'
-					+'<div class="IYIptRow mgt10">'
-					+'<button type="button" id="btnidinfo" title="추가정보"'
-					+'class="btnC m_size btn_wSizeF btn_blue">'
-					+'<span class="bWrap"><em class="txt">입력</em></span></button></div>'
-					)
-					
-					$("#btnidinfo").click(function(){
-						const getPwCheck=RegExp(/([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9])/);
-						 const pw=$('#txtPw').val();
-						 
-					  	const pwMatch=$('#txtPwMatch').val();
-					  	console.log("di");
-					  	if(pw===pwMatch){
-					  	if((getPwCheck.test(pw) && (pw.length>=8 && pw.length<=14)) && pw!=""){
-					  	
-					  	const pwUpdate={
-					  			pw:pw,
-					  			email:email
-					  	};	 
-					   $.ajax({
-							type:"post",
-							url:"IY_pwupdate",
-							headers:{"Content-Type":"application/json"},
-							dataType:"text",
-							data:JSON.stringify(pwUpdate),
-							success:function(ok){
-								alert(ok);
-								location.href="IY_login";
-							},error:function(){
-								console.log("실패");
-							}
-					   })
-					  	}else{
-					  		alert("특수문자 포함 8자이상 14자이하로 작성해주세요!")
-					  	}
-					  	}else{
-							alert("비밀번호와 확인란이 일치하지 않음")
-							
-					}
-					   });
-					
+						'<div class="IYTab_botCont"></div>'
+						+'<div class="IYIptRow"><span id="spanEmailMemNm"'
+						+'class="IYIpt m_size ipt_wSizeF focus_blue">'
+						+'<input id="txtPw" type="password" placeholder="비밀번호"></span></div>'
+						+'<div class="IYIptRow row_btnR_120 mgt10">'
+						+'<span id="spanEMail" class="IYIpt m_size ipt_wSizeF focus_blue">'
+						+'<input id="txtPwMatch" type="password" placeholder="비밀번호 확인"></span></div>'
+						+'<div class="IYIptRow mgt10">'
+						+'<button type="button" id="btnidinfo" title="추가정보"'
+						+'class="btnC m_size btn_wSizeF btn_blue">'
+						+'<span class="bWrap"><em class="txt">입력</em></span></button></div>'
+						)
+						
+						$("#btnidinfo").click(function(){
+							const getPwCheck=RegExp(/([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9])/);
+							 const pw=$('#txtPw').val();
+							 
+						  	const pwMatch=$('#txtPwMatch').val();
+						  	console.log("di");
+						  	if(pw===pwMatch){
+						  	if((getPwCheck.test(pw) && (pw.length>=8 && pw.length<=14)) && pw!=""){
+						  	
+						  	const pwUpdate={
+						  			pw:pw,
+						  			email:email
+						  	};	 
+						   $.ajax({
+								type:"post",
+								url:"IY_pwupdate",
+								headers:{"Content-Type":"application/json"},
+								dataType:"text",
+								data:JSON.stringify(pwUpdate),
+								success:function(ok){
+									alert(ok);
+									location.href="IY_login";
+								},error:function(){
+									console.log("실패");
+								}
+						   })
+						  	}else{
+						  		alert("특수문자 포함 8자이상 14자이하로 작성해주세요!")
+						  	}
+						  	}else{
+								alert("비밀번호와 확인란이 일치하지 않음")
+								
+						}
+						   });
+	
 			}else{
 				alert("부적절");
 			}

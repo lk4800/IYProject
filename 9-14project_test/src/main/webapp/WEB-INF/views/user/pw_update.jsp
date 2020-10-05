@@ -16,7 +16,7 @@
 		<div id="IYHeader">
 			<div class="IYHeaderAera">
 				<h1>
-					<span class=""><a href="/lifetheater" id="aLogo" class="lnk_logo"><img
+					<span class=""><a href="lifetheater" id="aLogo" class="lnk_logo"><img
 							src="./resources/img/include/LT.png" width="150" height="100" /></a></span> <span
 						class="servName">비밀번호 변경</span> 
 				</h1>

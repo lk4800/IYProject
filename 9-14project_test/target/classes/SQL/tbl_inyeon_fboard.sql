@@ -22,6 +22,11 @@ insert into tbl_inyeon_fboard values(fb_seq.nextval,'ㅁ','내용',0,sysdate,nul
 
 select * from tbl_inyeon_fboard order by fb_num desc;
 
+select * from TBL_INYEON_FBOARD where email='NULL' order by fb_num desc;
+
+delete from tbl_inyeon_fboard where fb_num=31;
+
+
 
 select tbl_inyeon_fboard.fb_title,tbl_inyeon_fboard.fb_cont,tbl_inyeon_fboard.fb_date,tbl_inyeon_fboard.fb_hit,
 		tbl_inyeon_user.name
