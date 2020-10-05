@@ -36,6 +36,7 @@ import com.lifetheater.service.RepService;
 import com.lifetheater.service.UserService;
 import com.lifetheater.service.UserSha256;
 import com.lifetheater.vo.FBoardVO;
+import com.lifetheater.vo.FRepContVO;
 import com.lifetheater.vo.FReplyVO;
 import com.lifetheater.vo.GugunVO;
 import com.lifetheater.vo.NBoardVO;
@@ -54,6 +55,8 @@ public class RestProjectController {//ajax로 문자열을 받기위해 사용
 	
 	@Autowired
 	private BoardService bservice;
+	
+	
 
 	@RequestMapping(value="/confirmEmail",method=RequestMethod.POST)
 	public ResponseEntity<String> confiem_email(@RequestBody UserVO user) {//이메일중복확인
@@ -298,6 +301,12 @@ public class RestProjectController {//ajax로 문자열을 받기위해 사용
 			bservice.nBoardDelete(nboard);	
 			
 			
+		}
+		
+		@PostMapping("/fbreplydelete")
+		public void fbreplydelete(@RequestBody FRepContVO freply) {
+			System.out.println(freply);
+			repService.fReplyDelete(freply);
 		}
 		
 		

@@ -45,20 +45,13 @@ public class IY_user {
 	}
 	@GetMapping("/IY_login")
 	public String login(HttpSession session) { //로그인 페이지
-		if(session.getAttribute("login")==null) {
 			return "user/login";
-		}
-		return "lifetheater";
 	}
 	@GetMapping("/IY_moreinfo")
 	public String moreinfo() {
 		return "user/moreinfo";
 	}
 	
-	@GetMapping("/IY_pw_update_page")
-	public String pw_update() {
-		return "user/pw_update";
-	}
 	
 	@PostMapping("/checkEmail")
 	public String checkEmail(UserVO user,HttpServletRequest request, String e_mail, HttpServletResponse response_email) throws IOException{

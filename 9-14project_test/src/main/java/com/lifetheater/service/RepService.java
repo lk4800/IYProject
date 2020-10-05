@@ -14,5 +14,8 @@ public interface RepService {
 	int totalRep(int fb_num);
 
 	void rep_repInsert(FReplyVO re);
+	
+	void fReplyDelete(FRepContVO freply); 
+
 
 }

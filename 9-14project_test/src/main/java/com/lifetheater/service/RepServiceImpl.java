@@ -37,4 +37,11 @@ public class RepServiceImpl implements RepService {
 		
 	}
 	
+	
+	
+	@Override
+	public void fReplyDelete(FRepContVO freply) {
+		this.repDao.fReplyDelete(freply);
+	}
+	
 }

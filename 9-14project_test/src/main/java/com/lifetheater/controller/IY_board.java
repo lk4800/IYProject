@@ -95,6 +95,8 @@ public class IY_board {
 	public String board_fcont(int fb_num,Model m) {
 		FBoardContVO fbCont = this.Service.selectFBCont(fb_num);
 		List<FRepContVO> frContList = this.repService.selectFreCont(fb_num);
+		
+		
 		int totalRep = this.repService.totalRep(fb_num);
 		this.Service.fHitUp(fb_num);
 		m.addAttribute("fbCont",fbCont);
@@ -102,7 +104,7 @@ public class IY_board {
 		m.addAttribute("totalRep",totalRep);
 		for(FRepContVO a : frContList) {
 			System.out.println("중간 확인 : "+a.getName()+", "+a.getFb_reply_cont()+", "+a.getFb_reply_date()+ 
-					", "+a.getFb_reply_reply_name()+", "+a.getFb_reply_reply_cont());
+					", "+a.getFb_reply_reply_name()+", "+a.getFb_reply_reply_cont()+", "+a.getDel_ck());
 		}
 		return "board/board_fcont";
 	}

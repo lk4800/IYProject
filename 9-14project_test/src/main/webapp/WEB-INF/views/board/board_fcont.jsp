@@ -61,9 +61,19 @@
 							
 						</c:if>
 						<c:if test="${!empty frContList}"> --%>
+						<!-- del_ch = 0 확인 시작  -->
+						<!-- 삭제된 댓글입니다 출력 -->
+						<!-- del_ch = 0 확인 끝 -->
+						<!-- del_ch = 1 확인 시작 -->
+						
 						<c:forEach var="r" items="${frContList}">
+						
 							<!-- /반복 해야대 -->
 							<c:if test="${empty r.fb_reply_reply_name}">
+						
+							
+						
+							
 								<li class="boad_cont_commentItem">
 									<div class="board_cont_commentArea">
 										<div class="board_cont_comment_nickBox">
@@ -77,20 +87,36 @@
 											<span class="board_cont_comment_info_date">${r.fb_reply_date}</span>
 											<button role="button" class="board_cont_comment_info_button"
 												onclick="rep_rep_write('${r.name}','${r.fb_reply_cont}');">답글쓰기</button>
+												<c:if test="${login.email==r.email}">
+												<button  role="button" id="replydelete" class="board_cont_comment_info_button"
+												onclick="rep_rep_delete('${r.freply_num}');">댓글삭제</button>
+												</c:if>
 											<!--  -->
 										</div>
 									</div>
 								</li>
+								</c:if>
 								<!-- /반복 해야대 -->
-							</c:if>
+							
 							<c:if test="${!empty r.fb_reply_reply_name}">
+							<c:if test="${r.del_ck  == '0'}">
+							<li class="boad_cont_commentItem">
+									<div class="board_cont_commentArea">
+										<div class="board_cont_comment_contBox">
+											<span class="board_cont_comment_content"><pre>삭제된 댓글입니다.</pre></span>
+										</div>
+									
+									</div>
+								</li>
+								</c:if>
+								<c:if test="${r.del_ck == '1'}">
 								<li class="boad_cont_commentItem">
 									<div class="board_cont_commentArea">
 										<div class="board_cont_comment_nickBox">
 											<span class="board_cont_comment_nickname">${r.name}</span>
 										</div>
 										<div class="board_cont_rep_info">
-											<span class="board_cont_rep_rep_name">${r.fb_reply_reply_name}</span>
+											<span class="board_cont_rep_rep_name">${r.fb_reply_reply_name},${r.del_ck}</span>
 											<span class="board_cont_rep_rep_cont">${r.fb_reply_reply_cont}</span>
 										</div>
 										<div class="board_cont_comment_contBox">
@@ -100,14 +126,23 @@
 											<span class="board_cont_comment_info_date">${r.fb_reply_date}</span>
 											<button role="button" class="board_cont_comment_info_button"
 												onclick="rep_rep_write('${r.name}','${r.fb_reply_cont}');">답글쓰기</button>
+												<c:if test="${login.email==r.email}">
+												<button  role="button" id="replydelete" class="board_cont_comment_info_button"
+												onclick="rep_rep_delete('${r.freply_num}');">댓글삭제</button>
+												</c:if>
 											<!--  -->
 										</div>
 									</div>
 								</li>
 								<!-- /반복 해야대 -->
+							
 							</c:if>
+							</c:if>
+							
+					
+							
 						</c:forEach>
-						<%-- </c:if> --%>
+						<%-- </c:if> --%><!-- del_ch = 1 확인 끝 -->
 						
 					</ul>
 					<!-- 댓글 글쓰기  -->
@@ -259,6 +294,24 @@ $("#board_rep_arpa").hide();
 		$("#board_rep_cont").hide();
 		$(".board_cont_comment_inbox_text").val('');
 		$(".board_cont_comment_inbox_text").focus();
+	}
+	
+	function rep_rep_delete(d){
+		const D = d;
+		console.log(D);
+		const replynum={freply_num:D};
+		console.log(replynum);
+		$.ajax({
+			type:"post",
+			url:"fbreplydelete",
+			headers:{"Content-Type":"application/json"},
+    		dataType:"text",
+			data:JSON.stringify(replynum),
+	    	success:function(){
+	    		alert("댓글 삭제 완료");
+	    		location.reload();
+	    	}
+		})
 	}
 	
 </script>

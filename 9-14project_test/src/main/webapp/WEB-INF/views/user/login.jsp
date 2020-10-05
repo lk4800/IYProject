@@ -260,7 +260,12 @@
 		    			console.log(data=="loginok");
 		    			if(data=="loginok"){
 		    				alert(email+"님 환영합니다.");
-		    				history.go(-1);
+		    				console.log(document.referrer);
+		    				if(document.referrer=='http://localhost/controller/IY_id_search'||document.referrer=='http://localhost/controller/IY_pw_search'){
+		    					location.href='lifetheater';
+		    				}else{
+		    				location.href=document.referrer;
+		    				}
 		    			}else{
 		    				if(data=="loginno"){
 		    					alert("이메일 인증을 해주세요.")

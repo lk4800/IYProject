@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.lifetheater.vo.FBoardContVO;
 import com.lifetheater.vo.FBoardVO;
+import com.lifetheater.vo.FRepContVO;
 import com.lifetheater.vo.NBoardVO;
 import com.lifetheater.vo.PBoardVO;
 
@@ -54,5 +55,6 @@ public interface BoardDAO {
 	void pBoardDelete(PBoardVO pBoardVO);
 	
 	void nBoardDelete(NBoardVO nBoardVO);
+	
 	
 }

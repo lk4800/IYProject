@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.lifetheater.dao.BoardDAO;
 import com.lifetheater.vo.FBoardContVO;
 import com.lifetheater.vo.FBoardVO;
+import com.lifetheater.vo.FRepContVO;
 import com.lifetheater.vo.NBoardVO;
 import com.lifetheater.vo.PBoardVO;
 
@@ -118,6 +119,8 @@ public class BoardServiceImpl implements BoardService {
 	public void nBoardDelete(NBoardVO nBoardVO) {
 		this.BoardDao.nBoardDelete(nBoardVO);
 	}
+	
+
 	
 	
 }

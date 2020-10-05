@@ -12,4 +12,5 @@ public class FBoardContVO {
 	String fb_hit;
 	String fb_date;
 	String name;
+	
 }

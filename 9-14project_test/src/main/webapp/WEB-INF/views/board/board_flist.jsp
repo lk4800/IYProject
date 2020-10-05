@@ -70,7 +70,12 @@
             <%-- 검색전 페이징 --%> 
             <c:if test="${(empty condition) && (empty keyword)}">  
               <c:if test="${page>1}">
+              <c:if test="${startpage-1==0}">
               <a href="IY_board_flist?page=${startpage}" class="board_bt board_first">처음 페이지</a>
+              </c:if>
+              <c:if test="${startpage-1>0}">
+              <a href="IY_board_flist?page=${startpage-1}" class="board_bt board_first">처음 페이지</a>
+              </c:if>
               <a href="IY_board_flist?page=${page-1}" class="board_bt board_prev">이전 페이지</a>
               </c:if>
               <c:forEach var="f" begin="${startpage}" end="${endpage}" step="1">
@@ -86,7 +91,12 @@
          
               <c:if test="${page<maxpage}">
                <a href="IY_board_flist?page=${page+1}" class="board_bt board_next">다음 페이지</a>
+               <c:if test="${maxpage>endpage+1}">
+              <a href="IY_board_flist?page=${endpage+1}" class="board_bt board_last">마지막 페이지</a>
+              </c:if>
+              <c:if test="${maxpage<endpage+1}">
               <a href="IY_board_flist?page=${endpage}" class="board_bt board_last">마지막 페이지</a>
+              </c:if>
               </c:if>
               </c:if>
               

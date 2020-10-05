@@ -16,7 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  </insert>
  
  <select id="select_fre_cont" resultType="recont"> 		 
- 		  select tbl_inyeon_freply.freply_num,tbl_inyeon_freply.fb_reply_cont,tbl_inyeon_freply.fb_reply_date,tbl_inyeon_user.email,tbl_inyeon_user.name,tbl_inyeon_freply.fb_reply_reply_name,tbl_inyeon_freply.fb_reply_reply_cont 
+ 		  select tbl_inyeon_freply.freply_num,tbl_inyeon_freply.del_ck,tbl_inyeon_freply.fb_reply_cont,tbl_inyeon_freply.fb_reply_date,tbl_inyeon_user.email,tbl_inyeon_user.name,tbl_inyeon_freply.fb_reply_reply_name,tbl_inyeon_freply.fb_reply_reply_cont 
   from tbl_inyeon_freply inner join tbl_inyeon_user on tbl_inyeon_freply.email=tbl_inyeon_user.email where
  		 tbl_inyeon_freply.fboard_num=#{fb_num} order by tbl_inyeon_freply.freply_num desc
  </select>
@@ -24,5 +24,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  <select id="totalRep" resultType="int">
  	SELECT COUNT(*) FROM tbl_inyeon_freply WHERE fboard_num = #{fb_num}
  </select>
+ 
+ 
+ <update id="fReplyDelete" >
+ 	update tbl_inyeon_freply set del_ck=0 where freply_num=#{freply_num}
+ </update>
  
 </mapper>

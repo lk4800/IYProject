@@ -22,7 +22,9 @@
     			<h2 class="board_list_bt"><b>홍보 게시판</b></h2>			
     		</div>	
     		<div>
+    			<c:if test="${login.membertype==2}">
             <button type="button" onclick="location='IY_board_pwrite'" class="board_write_btn">글쓰기</button>
+            </c:if>
     		</div>	
     		</div>
         	<div>

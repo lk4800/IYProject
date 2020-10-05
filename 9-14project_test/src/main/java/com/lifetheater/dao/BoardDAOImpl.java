@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.lifetheater.vo.FBoardContVO;
 import com.lifetheater.vo.FBoardVO;
+import com.lifetheater.vo.FRepContVO;
 import com.lifetheater.vo.NBoardVO;
 import com.lifetheater.vo.PBoardVO;
 
@@ -147,4 +148,7 @@ public class BoardDAOImpl implements BoardDAO {
 	public void nBoardDelete(NBoardVO nBoardVO) {
 		this.sqlSession.delete("nBoardDelete", nBoardVO);
 	}
+
+
+
 }

@@ -36,6 +36,12 @@ public class RepDAOImpl implements RepDAO {
 		this.sqlSession.insert("rep_rep_insert",re);
 		
 	}
+
+	@Override
+	public void fReplyDelete(FRepContVO freply) {
+		this.sqlSession.update("fReplyDelete", freply);
+		
+	}
 	
 	
 	
