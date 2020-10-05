@@ -8,7 +8,6 @@
 	/* min-height:100%; */
 	/* padding:50px 100px; */
 	margin:0 auto;
-	/* border:1px solid red; */
 }
 .mypage-left-lnb-wrap{
 	float:left;
@@ -17,7 +16,7 @@
 }
 .mypage-left-manu{
 	margin:0;
-	padding:0
+	padding:0;
 }
 .mypage-left-manu-tit{
 	border-radius:10px 10px 0 0;

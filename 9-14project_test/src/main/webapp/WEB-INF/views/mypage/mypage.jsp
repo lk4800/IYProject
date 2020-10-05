@@ -25,6 +25,7 @@
         <li><a href="IY_mypage_reservation">예매내역</a></li>
         <li><a href="IY_mypage_point">포인트 내역</a></li>
         <li><a href="#">게시글 내역</a>
+        <li><a href="#">문의 내역</a>
         <li><a href="IY_mypage_edit_user">회원정보</a>
           <ul class="mypage-lnb-depth">
             <li><a href="IY_mypage_edit_user">- 개인정보 변경</a></li>

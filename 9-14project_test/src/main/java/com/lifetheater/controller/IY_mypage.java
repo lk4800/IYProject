@@ -153,6 +153,6 @@ public class IY_mypage {
 		// 이메일에 해당하는
 		// 게시글 검색하여
 		// 리스트로 반환하기
-		
+		return null;
 	}
 }
