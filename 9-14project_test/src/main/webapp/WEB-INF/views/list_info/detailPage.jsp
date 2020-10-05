@@ -1,4 +1,6 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -114,9 +116,13 @@
 					</div>
 				</div>
 			</div>
+			
+			
 		</div>
-
+		<jsp:include page="../../views/calendar/index.jsp" />
+		
 	</div>
+	
 		<jsp:include page="../../include/footer.jsp" />
 <body>
 </body>

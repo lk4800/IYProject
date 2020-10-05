@@ -35,10 +35,18 @@
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 		<property name="driverClassName"
 			value="oracle.jdbc.OracleDriver" />
+			<!-- 개인 -->
 		<property name="jdbcUrl"
+			value="jdbc:oracle:thin:@localhost:1521:xe" />
+		<property name="username" value="week" />
+		<property name="password" value="week" />
+		
+		
+		<!-- 공용 -->
+	<!-- 	<property name="jdbcUrl"
 			value="jdbc:oracle:thin:@192.168.0.15:1521:xe" />
 		<property name="username" value="hyeah303" />
-		<property name="password" value="lifetheater" />
+		<property name="password" value="lifetheater" /> -->
 	</bean>
 
 	<!-- 데이터 소스 객체 빈 등록 -->
