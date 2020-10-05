@@ -6,11 +6,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class FBoardContVO {
-	int fb_num;
-	String email;
-	String fb_title;
-	String fb_cont;
-	String fb_hit;
-	String fb_date;
-	String name;
+	private int fb_num;
+	private String email;
+	private String fb_title;
+	private String fb_cont;
+	private String fb_hit;
+	private String fb_date;
+	private String name;
 }

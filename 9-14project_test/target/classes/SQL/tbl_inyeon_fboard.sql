@@ -15,6 +15,7 @@ increment by 1
 nocache
 
 alter table tbl_inyeon_fboard add constraint fb_fk_email foreign key (email) references tbl_inyeon_user(email);
+alter table tbl_inyeon_fboard foreign key (email) references tbl_inyeon_user(email);
 
 
 

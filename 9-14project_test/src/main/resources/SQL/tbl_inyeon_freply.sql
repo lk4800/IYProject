@@ -7,9 +7,10 @@ create table tbl_inyeon_freply( --자유 게시판 댓글 테이블
 	fb_reply_reply_name varchar2(400),--자유 게시판 대댓글이 참조하는 작성자 이름
 	fb_reply_reply_cont varchar2(400),--자유 게시판 대댓글이 참조하는 댓글 내용
 	email varchar2(100),
-	del_ck char not null
+	del_ck char not null --삭제인지 아닌지 확인하는 컬럼 / 1일경우 일반댓글 ,0 일경우 삭제된 댓글
 )
-
+--삭제시 del_ck를 0으로바꾸고 뷰페이지쪽에서 c:if를활용하여 del_ck가 0일경우 '삭제된 댓글 입니다' 로변경
+--게시판은삭제될떄 댓글까지 삭제
 drop table tbl_inyeon_freply;
 
 alter table tbl_inyeon_freply add constraint frep_fk_email foreign key (email) references tbl_inyeon_user(email);

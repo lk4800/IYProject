@@ -19,6 +19,7 @@ public class UserVO {
 	private String prefTheater01;	//선호극장
 	private String prefTheater02;
 	private String prefTheater03;
+	private String belong;
 	
 	  private Boolean autologin; //자동 로그인
 	  private Boolean loginsave; //로그인 정보 저장

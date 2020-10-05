@@ -434,7 +434,12 @@ a {
 	width:15%
 }
 
-
+#board_cont_lastbtn:hover ,#board_cont_firstbtn:hover{
+	cursor: pointer;
+}
+.board_cont_Act{
+	color: black;
+}
 
 
 

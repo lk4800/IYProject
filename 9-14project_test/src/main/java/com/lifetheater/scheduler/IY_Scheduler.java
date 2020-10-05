@@ -19,6 +19,6 @@ public class IY_Scheduler {
 	@Scheduled(cron="0 0 12 * * *")//실행할 시간
 	public void autoDelete() {
 		this.UserDao.autoDelUser();
-		System.out.println("1이상의 이메일 미 인증자 삭제");
+		System.out.println("이메일 미 인증자 삭제");
 	}
 }
