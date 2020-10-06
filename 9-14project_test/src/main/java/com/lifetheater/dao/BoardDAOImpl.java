@@ -8,7 +8,9 @@ import org.springframework.stereotype.Repository;
 
 import com.lifetheater.vo.FBoardContVO;
 import com.lifetheater.vo.FBoardVO;
+import com.lifetheater.vo.NBoardContVO;
 import com.lifetheater.vo.NBoardVO;
+import com.lifetheater.vo.PBoardContVO;
 import com.lifetheater.vo.PBoardVO;
 
 @Repository
@@ -71,12 +73,6 @@ public class BoardDAOImpl implements BoardDAO {
 
 
 	@Override
-	public FBoardVO selectCont(int fb_num) {
-		return this.sqlSession.selectOne("selectCont", fb_num);
-	}
-
-
-	@Override
 	public void fBoardUpdate(FBoardVO fBoardVO) {
 		this.sqlSession.update("fb_update", fBoardVO);
 		
@@ -84,8 +80,35 @@ public class BoardDAOImpl implements BoardDAO {
 
 
 	@Override
-	public void pBoardNoUpdate(FBoardVO fBoardVO) {
+	public void fBoardNoUpdate(FBoardVO fBoardVO) {
 		this.sqlSession.update("fb_NoImgupdate", fBoardVO);
+		
+	}
+	
+	@Override
+	public void pBoardNoUpdate(PBoardVO pBoardVO) {
+		this.sqlSession.update("pb_NoImgupdate", pBoardVO);
+		
+	}
+
+
+	@Override
+	public void pBoardUpdate(PBoardVO pBoardVO) {
+		this.sqlSession.update("pb_update", pBoardVO);
+		
+	}
+
+
+	@Override
+	public void nBoardNoUpdate(NBoardVO nBoardVO) {
+		this.sqlSession.update("nb_NoImgupdate", nBoardVO);
+		
+	}
+
+
+	@Override
+	public void nBoardUpdate(NBoardVO nBoardVO) {
+		this.sqlSession.update("nb_update", nBoardVO);
 		
 	}
 	
@@ -147,4 +170,48 @@ public class BoardDAOImpl implements BoardDAO {
 	public void nBoardDelete(NBoardVO nBoardVO) {
 		this.sqlSession.delete("nBoardDelete", nBoardVO);
 	}
+
+
+	@Override
+	public NBoardContVO selectNBCont(int nb_num) {
+		return this.sqlSession.selectOne("selectNBCont", nb_num);
+	}
+
+
+	@Override
+	public PBoardContVO selectPBCont(int pb_num) {
+		return this.sqlSession.selectOne("selectPBCont", pb_num);
+	}
+
+
+	@Override
+	public void pHitUp(int pb_num) {
+		this.sqlSession.update("pbHitUp", pb_num);	
+	}
+	
+	@Override
+	public void nHitUp(int nb_num) {
+		this.sqlSession.update("nbHitUp", nb_num);	
+	}
+
+
+	@Override
+	public FBoardVO selectFCont(int fb_num) {
+		return this.sqlSession.selectOne("selectFCont", fb_num);
+	}
+
+
+	@Override
+	public NBoardVO selectNCont(int nb_num) {
+		return this.sqlSession.selectOne("selectNCont", nb_num);
+	}
+
+
+	@Override
+	public PBoardVO selectPCont(int pb_num) {
+		return this.sqlSession.selectOne("selectPCont", pb_num);
+	}
+
+
+	
 }

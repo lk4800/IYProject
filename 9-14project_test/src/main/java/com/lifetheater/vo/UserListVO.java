@@ -11,6 +11,7 @@ public class UserListVO {
 	  private String reg_date;	//가입날짜
 	  private String name;	//이름
 	  private String phone;	//폰번호
+	  private String belong;//소속
 	  
 	  	//페이징(쪽나누기:paging) 관련 변수
 		private int startrow;//시작행 번호

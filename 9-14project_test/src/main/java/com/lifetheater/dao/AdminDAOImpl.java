@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.lifetheater.vo.TheaterDListVO;
 import com.lifetheater.vo.UserListVO;
 
 @Repository
@@ -32,6 +33,27 @@ public class AdminDAOImpl implements AdminDAO {
 	@Override
 	public void show_memberCh(UserListVO user) {
 		this.sqlSession.update("show_memberCh", user);
+		
+	}
+
+	@Override
+	public int getTotalTheaterCount(TheaterDListVO tdlvo) {
+		return this.sqlSession.selectOne("getTotalTheaterCount",tdlvo);
+	}
+
+	@Override
+	public List<TheaterDListVO> getTheaterList(TheaterDListVO tdlvo) {
+		return this.sqlSession.selectList("getTheaterList",tdlvo);
+	}
+
+	@Override
+	public void tdCancle(int td_no) {
+		this.sqlSession.update("tdCancle", td_no);
+	}
+
+	@Override
+	public void tdApprove(int td_no) {
+		this.sqlSession.update("tdApprove", td_no);
 		
 	}
 }

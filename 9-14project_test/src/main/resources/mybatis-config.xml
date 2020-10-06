@@ -10,9 +10,13 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.lifetheater.vo.PBoardVO" alias="pb" />
 		<typeAlias type="com.lifetheater.vo.NBoardVO" alias="nb" />
 		<typeAlias type="com.lifetheater.vo.FBoardContVO" alias="fbcont" />
+		<typeAlias type="com.lifetheater.vo.NBoardContVO" alias="nbcont" />
+		<typeAlias type="com.lifetheater.vo.PBoardContVO" alias="pbcont" />
 		<typeAlias type="com.lifetheater.vo.FReplyVO" alias="re" />
 		<typeAlias type="com.lifetheater.vo.FRepContVO" alias="recont" />
 		<typeAlias type="com.lifetheater.vo.GugunVO" alias="g" />
 		<typeAlias type="com.lifetheater.vo.UserListVO" alias="ulv" />
+		<typeAlias type="com.lifetheater.vo.TheaterDVO" alias="tdvo" />
+		<typeAlias type="com.lifetheater.vo.TheaterDListVO" alias="tdlvo" />
 	</typeAliases>
 </configuration>

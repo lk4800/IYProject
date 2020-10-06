@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lifetheater.dao.AdminDAO;
+import com.lifetheater.vo.TheaterDListVO;
 import com.lifetheater.vo.UserListVO;
 
 @Service
@@ -33,6 +34,27 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void show_memberCh(UserListVO user) {
 		this.dao.show_memberCh(user);
+		
+	}
+
+	@Override
+	public int getTotalTheaterCount(TheaterDListVO tdlvo) {
+		return this.dao.getTotalTheaterCount(tdlvo);
+	}
+
+	@Override
+	public List<TheaterDListVO> getTheaterList(TheaterDListVO tdlvo) {
+		return this.dao.getTheaterList(tdlvo);
+	}
+
+	@Override
+	public void tdCancle(int td_no) {
+		this.dao.tdCancle(td_no);
+	}
+
+	@Override
+	public void tdApprove(int td_no) {
+		this.dao.tdApprove(td_no);
 		
 	}
 

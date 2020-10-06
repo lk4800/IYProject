@@ -17,4 +17,8 @@ public interface RepDAO {
 	
 	void fReplyDelete(FRepContVO freply);
 
+	List<FRepContVO> selectFreCont2(int fb_num);
+
+	void frepUpdate(FReplyVO rvo);
+
 }

@@ -15,7 +15,7 @@
 		<div class="board_submenu">
 			<a class=board_list_st href="IY_admin_userSerch"
 				style="border: none;">회원 유져 등급 변경</a>|<a class=board_list_st_last
-				style="margin-left: 5px;" href="#">연극 등록 승인</a>
+				style="margin-left: 5px;" href="IY_amdin_theaterCh">연극 등록 승인</a>
 			<!-- IY_amdin_theaterCh -->
 		</div>
 		<div>
@@ -28,19 +28,37 @@
 		<div>
 			<div class="board_list">
 				<div class="board_list_head">
-					<div class="admin_board_name">홍보자</div>
-					<div class="admin_board_email">공연 제목</div>
-					<!-- <div class="admin_board_phone"></div> 추가할꺼 확인해야댐-->
+					<div class="admin_board_Tname">홍보자</div>
+					<div class="admin_board_Ttitle">공연 제목</div>
 					<div class="admin_board_date">공연 기간</div>
 					<div class="admin_board_membership">등급</div>
 					<div class="admin_board_membershipCh">확인</div>
+					<div class="admin_board_SignUpDate">신청 날짜</div>
 				</div>
-				<c:if test="${theaterCheckList.size() <= 0}">
+				<c:if test="${theaterChList.size() <= 0}">
 					<div class="NoSelectBox" style="text-align: center;">
 						<strong>등록할 연극이 없습니다.</strong>
 					</div>
-
 				</c:if>
+				
+				<div class="board_list_body">
+					<c:if test="${theaterChList.size() > 0}">
+						<c:forEach var="tl" items="${theaterChList}">
+							<div class="board_item">
+								<div class="admin_board_Tname">${tl.email}</div>
+								<div class="admin_board_Ttitle">${tl.td_title}</div>
+								<div class="admin_board_date">${tl.td_viewdays}</div>
+								<div class="admin_board_membership">${tl.td_agegrade}</div>
+								<div class="admin_board_membershipCh">
+										<button onclick="cancle(${tl.td_no});">거부</button>
+										<button onclick="approve(${tl.td_no});">승인</button>
+									</div>
+								<div class="admin_board_SignUpDate">${tl.td_signUp_date}</div>
+							</div>
+						</c:forEach>
+					</c:if>
+				</div>
+				
 			</div>
 		</div>
 
@@ -48,14 +66,11 @@
 			<select id="board_select_list" name="condition">
 				<!-- 검색될꺼 바뀔예정 -->
 				<option value="name"
-					<c:if test="${condition=='name'}">
-   ${'selected'}</c:if>>작성자</option>
+					<c:if test="${condition=='td_title'}">
+   ${'selected'}</c:if>>공연 제목</option>
 				<option value="email"
 					<c:if test="${condition=='email'}">
    ${'selected'}</c:if>>email</option>
-				<option value="membertype"
-					<c:if test="${condition=='membertype'}">
-   ${'selected'}</c:if>>회원등급</option>
 			</select> <input name="find_name" id="board_search" value="${keyword}" /> <input
 				type="button" id="searchflist" value="검색" />
 		</div>
@@ -154,4 +169,40 @@
 				location.href="IY_amdin_theaterCh?keyword="+keyword
 				+"&condition=" + condition;
 			}
+		});
+  });
+	function cancle(td_no){
+		var answer = confirm('등록을 거부하겠습니까?');
+		if(answer){
+			const theaterInfo={
+					td_no:td_no
+			};
+			$.ajax({
+				type:"POST",
+	    	url:"td_cancle",
+	    	headers:{"Content-Type":"application/json"},
+	    	data:JSON.stringify(theaterInfo),
+		    success:function(){
+	    		window.location.reload();
+	    	} 
+			});
+		}
+	}
+	function approve(td_no){
+		var answer = confirm('등록을 승인하겠습니까?');
+		if(answer){
+			const theaterInfo={
+					td_no:td_no
+			};
+			$.ajax({
+				type:"POST",
+	    	url:"td_approve",
+	    	headers:{"Content-Type":"application/json"},
+	    	data:JSON.stringify(theaterInfo),
+		    success:function(){
+	    		window.location.reload();
+	    	} 
+			});
+		}
+	}
 </script>

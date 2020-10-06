@@ -284,7 +284,6 @@ public class RestProjectController {//ajax로 문자열을 받기위해 사용
 		public void fbdelete(@RequestBody FBoardVO fboard) {
 			System.out.println(fboard.getFb_num());
 			bservice.fBoardDelete(fboard);
-			
 		}
 		
 		@PostMapping("/pbdelete")
@@ -308,7 +307,20 @@ public class RestProjectController {//ajax로 문자열을 받기위해 사용
 			repService.fReplyDelete(freply);
 		}
 		
-		
+		@PostMapping("frep_update")
+		public ResponseEntity<Void> frepUpdate(@RequestBody FReplyVO rvo){
+			ResponseEntity<Void> entity = null;
+			try {
+				System.out.println("rvo중간 확인 : "+rvo.getFreply_num()+", "+rvo.getFb_reply_cont());
+				this.repService.frepUpdate(rvo);
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+				entity =new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+			}
+			
+			return entity;
+		}
 		
 		
 		

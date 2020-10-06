@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <meta charset="UTF-8">
@@ -15,7 +16,7 @@
 		<div class="board_submenu">
 			<a class=board_list_st href="IY_admin_userSerch"
 				style="border: none;">회원 유져 등급 변경</a>|<a class=board_list_st_last style="margin-left: 5px;"
-				href="#">연극 등록 승인</a> <!-- IY_amdin_theaterCh -->
+				href="IY_amdin_theaterCh">연극 등록 승인</a> <!-- IY_amdin_theaterCh -->
 		</div>
 		<div>
 			<div>
@@ -33,6 +34,7 @@
 					<div class="admin_board_date">가입 날짜</div>
 					<div class="admin_board_membership">등급</div>
 					<div class="admin_board_membershipCh">변경등급</div>
+					<div class="admin_board_belong">소속</div>
 				</div>
 				<c:if test="${userlist.size() <= 0}">
 					<div class="NoSelectBox" style="text-align: center;">
@@ -43,25 +45,28 @@
 				<div class="board_list_body">
 					<c:if test="${userlist.size() > 0}">
 						<c:forEach var="ul" items="${userlist}">
-							<div class="board_item">
-								<div class="admin_board_name">${ul.name}</div>
-								<div class="admin_board_email">${ul.email}</div>
-								<div class="admin_board_phone">${ul.phone}</div>
-								<div class="admin_board_date">${ul.reg_date}</div>
-								<div class="admin_board_membership">
-									<c:set value="${ul.membertype}" var="type" />									
-									<c:if test="${type eq 0}">탈퇴 회원</c:if>
-									<c:if test="${type eq 1}">일반 회원</c:if>
-									<c:if test="${type eq 2}">공연 관계자</c:if>
-									<c:if test="${type eq 3}">관리자</c:if>
-									<c:out value="${type}"></c:out>
+						<c:set var="i" value="${i+1}" />
+								<div class="board_item">
+									<div class="admin_board_name">${ul.name}</div>
+									<div class="admin_board_email">${ul.email}</div>
+									<div class="admin_board_phone">${ul.phone}</div>
+									<div class="admin_board_date">${ul.reg_date}</div>
+									<div class="admin_board_membership">
+										<c:set value="${ul.membertype}" var="type" />									
+										<c:if test="${type eq '0'.charAt(0)}">탈퇴 회원</c:if>
+										<c:if test="${type eq '1'.charAt(0)}">일반 회원</c:if>
+										<c:if test="${type eq '2'.charAt(0)}">공연 관계자</c:if>
+										<c:if test="${type eq '3'.charAt(0)}">관리자</c:if>
+									</div>
+									<div class="admin_board_membershipCh">
+										<button onclick="general_memberCh('${ul.email}');">일반회원변경</button>
+										<button onclick="show_memberCh('${ul.email}',${i});">공연관계자변경</button>
+									</div>
+									<div class="admin_board_belong">
+										<span class="belong_name">${ul.belong}</span>
+										<input id="admin_belongUp${i}" type="text" size="10"/>
+									</div>
 								</div>
-								<div class="admin_board_membershipCh">
-									<button onclick="general_memberCh('${ul.email}');">일반회원변경</button>
-									<button onclick="show_memberCh('${ul.email}');">공연관계자변경</button>
-								</div>
-
-							</div>
 						</c:forEach>
 					</c:if>
 				</div>
@@ -80,6 +85,9 @@
 				</select> <input name="find_name" id="board_search" value="${keyword}" /> <input
 					type="button" id="searchflist" value="검색" />
 			</div>
+			
+			<label style="color:gray;">1:일반 회원 2:공연 관계자 3:관리자</label>
+			<div class="clear"></div>
 			<div class="board_paging">
 				<%-- 검색전 페이징 --%>
 				<c:if test="${(empty condition) && (empty keyword)}">
@@ -197,22 +205,30 @@
  		});
  	}
  	
- 	function show_memberCh(email){
- 		const userInfo = {
- 			email:email
- 			}
- 		alert(email);
- 		$.ajax({
-    		type:"post",
-    		url:"show_memberCh",
-    		headers:{"Content-Type":"application/json"},
-    		dataType:"text",
-    		data:JSON.stringify(userInfo),
-    		success:function(data){
-    			alert('성공');
-    			location.reload();
-    		}
- 		});
+ 	function show_memberCh(email,n){
+ 		var belong = $("#admin_belongUp"+n).val();
+ 		if($.trim($("#admin_belongUp"+n).val())==""){
+ 			alert("소속을 입력해주세요");
+ 			return false;
+ 		}else{
+ 			const userInfo = {
+ 				email:email,
+ 				belong:belong
+ 				}
+ 			alert(email);
+ 			alert($("#admin_belongUp"+n).val());
+ 			$.ajax({
+    			type:"post",
+    			url:"show_memberCh",
+    			headers:{"Content-Type":"application/json"},
+    			dataType:"text",
+    			data:JSON.stringify(userInfo),
+    			success:function(data){
+    				alert('성공');
+    				location.reload();
+    			}
+ 			});
+ 		}
  	}
       	</script>
 </body>

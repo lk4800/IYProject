@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lifetheater.service.AdminService;
+import com.lifetheater.vo.TheaterDListVO;
 import com.lifetheater.vo.UserListVO;
 
 @Controller
@@ -56,7 +57,8 @@ public class adminController {
 	  
 		  List<UserListVO> list=service.getUserList(userListVO); 
 		  for(UserListVO u : list) { 
-			  System.out.println(u);
+			  System.out.println(u.getEmail());
+			  System.out.println(u.getBelong());
 		  }
 	  
 		  int maxpage=(int)((double)totalCount/limit+0.95); 
@@ -91,7 +93,8 @@ public class adminController {
 	  @ResponseBody
 	  @PostMapping("/show_memberCh") public ResponseEntity<Void> show_memberCh(@RequestBody UserListVO user){ 
 		ResponseEntity<Void> entity = null; 
-		System.out.println(user.getEmail()); 
+		System.out.println(user.getEmail());
+		System.out.println(user.getBelong());
 		try {
 			this.service.show_memberCh(user); 
 			entity = new ResponseEntity<Void>(HttpStatus.OK);
@@ -105,7 +108,7 @@ public class adminController {
 	  
 	  
 	  @GetMapping("/IY_amdin_theaterCh")
-	  public String view_check(Model m,HttpServletRequest request,UserListVO teaterListVO) {//연극 VO클래스 바꿔야댐
+	  public String view_check(Model m,HttpServletRequest request,TheaterDListVO tdlvo) {//연극 VO클래스 바꿔야댐
 		  int page=1; 
 		  int limit=10; 
 		  if(request.getParameter("page")!=null) {
@@ -129,15 +132,15 @@ public class adminController {
 	  
 		  m.addAttribute("condition", condition); m.addAttribute("keyword", keyword);
 	  	
-		  teaterListVO.setStartrow((page-1)*10+1);//시작행 번호
-		  teaterListVO.setEndrow(teaterListVO.getStartrow()+limit-1);//끝행번호
+		  tdlvo.setStartrow((page-1)*10+1);//시작행 번호
+		  tdlvo.setEndrow(tdlvo.getStartrow()+limit-1);//끝행번호
 	  
-		  int totalCount=this.service.getTotalCount(teaterListVO);//총 유져 수
+		  int totalCount=this.service.getTotalTheaterCount(tdlvo);//총 유져 수
 		  System.out.println(totalCount);
 	  
-		  List<UserListVO> list=service.getUserList(teaterListVO); 
-		  for(UserListVO u : list) { 
-			  System.out.println(u);
+		  List<TheaterDListVO> list=service.getTheaterList(tdlvo); 
+		  for(TheaterDListVO l : list) { 
+			  System.out.println(l);
 		  }
 	  
 		  int maxpage=(int)((double)totalCount/limit+0.95); 
@@ -155,6 +158,32 @@ public class adminController {
 	  	  m.addAttribute("page", page);
 		  
 		  return "admin/theaterCh";
+	  }
+	  
+	  @PostMapping("/td_cancle")
+	  public ResponseEntity<Void> tdCancle(@RequestBody TheaterDListVO tdlvo){
+		  ResponseEntity<Void> entity = null; 
+		  try {
+			  this.service.tdCancle(tdlvo.getTd_no());
+			  entity = new ResponseEntity<Void>(HttpStatus.OK);
+		  }catch(Exception e) {
+			  e.printStackTrace();
+			  entity = new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+		  }
+		  return entity;
+	  }
+	  
+	  @PostMapping("/td_approve")
+	  public ResponseEntity<Void> tdApprove(@RequestBody TheaterDListVO tdlvo){
+		  ResponseEntity<Void> entity = null; 
+		  try {
+			  this.service.tdApprove(tdlvo.getTd_no());
+			  entity = new ResponseEntity<Void>(HttpStatus.OK);
+		  }catch(Exception e) {
+			  e.printStackTrace();
+			  entity = new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+		  }
+		  return entity;
 	  }
 	 
 

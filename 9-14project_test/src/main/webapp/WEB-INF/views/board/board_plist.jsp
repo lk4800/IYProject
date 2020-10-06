@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <meta charset="UTF-8">
@@ -22,7 +23,9 @@
     			<h2 class="board_list_bt"><b>홍보 게시판</b></h2>			
     		</div>	
     		<div>
+    				<c:if test="${login.membertype eq '2'.charAt(0)}">
             <button type="button" onclick="location='IY_board_pwrite'" class="board_write_btn">글쓰기</button>
+            </c:if>
     		</div>	
     		</div>
         	<div>
@@ -47,7 +50,7 @@
                       <div class="board_num">${pb.pb_num}</div>
                       <div class="board_tit"><a href="IY_board_pcont?pb_num=${pb.pb_num}">${pb.pb_title}</a></div>
                       <div class="board_writer">${pb.email}</div>
-                      <div class="board_date">${pb.pb_date}</div>
+                      <div class="board_date">${f:substring(pb.pb_date,0,10)}</div>
                       <div class="board_view">${pb.pb_hit}</div>
                     </div>
                     </c:forEach>

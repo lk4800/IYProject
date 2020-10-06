@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import com.lifetheater.dao.BoardDAO;
 import com.lifetheater.vo.FBoardContVO;
 import com.lifetheater.vo.FBoardVO;
+import com.lifetheater.vo.NBoardContVO;
 import com.lifetheater.vo.NBoardVO;
+import com.lifetheater.vo.PBoardContVO;
 import com.lifetheater.vo.PBoardVO;
 
 @Service
@@ -55,17 +57,28 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public FBoardVO selectCont(int fb_num) {
-		return this.BoardDao.selectCont(fb_num);
-	}
-
-	@Override
 	public void fBoardUpdate(FBoardVO fBoardVO) {
 		
 		if(fBoardVO.getFb_img_url() == null)
-			this.BoardDao.pBoardNoUpdate(fBoardVO);
+			this.BoardDao.fBoardNoUpdate(fBoardVO);//추가이미지없는 업데이트
 		else 
-			this.BoardDao.fBoardUpdate(fBoardVO);
+			this.BoardDao.fBoardUpdate(fBoardVO);//추가이미지 있는 업데이트
+	}
+	
+	@Override
+	public void pBoardUpdate(PBoardVO pBoardVO) {
+		if(pBoardVO.getPb_img_url() == null)
+			this.BoardDao.pBoardNoUpdate(pBoardVO);
+		else 
+			this.BoardDao.pBoardUpdate(pBoardVO);
+	}
+
+	@Override
+	public void nBoardUpdate(NBoardVO nBoardVO) {
+		if(nBoardVO.getNb_img_url() == null)
+			this.BoardDao.nBoardNoUpdate(nBoardVO);
+		else 
+			this.BoardDao.nBoardUpdate(nBoardVO);
 	}
 	
 	
@@ -118,6 +131,43 @@ public class BoardServiceImpl implements BoardService {
 	public void nBoardDelete(NBoardVO nBoardVO) {
 		this.BoardDao.nBoardDelete(nBoardVO);
 	}
+
+	@Override
+	public NBoardContVO selectNBCont(int nb_num) {
+		return this.BoardDao.selectNBCont(nb_num);
+	}
+
+	@Override
+	public PBoardContVO selectPBCont(int pb_num) {
+		return this.BoardDao.selectPBCont(pb_num);
+	}
+
+	@Override
+	public void pHitUp(int pb_num) {
+		this.BoardDao.pHitUp(pb_num);
+	}
+	
+	@Override
+	public void nHitUp(int nb_num) {
+		this.BoardDao.nHitUp(nb_num);
+	}
+
+	@Override
+	public FBoardVO selectFCont(int fb_num) {
+		return this.BoardDao.selectFCont(fb_num);
+	}
+
+	@Override
+	public NBoardVO selectNCont(int nb_num) {
+		return this.BoardDao.selectNCont(nb_num);
+	}
+
+	@Override
+	public PBoardVO selectPCont(int pb_num) {
+		return this.BoardDao.selectPCont(pb_num);
+	}
+
+
 	
 	
 }

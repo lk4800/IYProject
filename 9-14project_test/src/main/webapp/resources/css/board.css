@@ -418,8 +418,11 @@ a {
 .admin_board_name {
 	width:10%;
 }
+.admin_board_Tname{
+	width:15%;
+}
 .admin_board_email{
-	width:20%;
+	width:10%;
 }
 .admin_board_phone{
 	width:20%;
@@ -433,14 +436,21 @@ a {
 .admin_board_membership{
 	width:15%
 }
-
+.admin_board_belong{
+	width:10%;
+}
 #board_cont_lastbtn:hover ,#board_cont_firstbtn:hover{
 	cursor: pointer;
 }
 .board_cont_Act{
 	color: black;
 }
-
+.admin_board_SignUpDate{
+	width:10%;
+}
+.admin_board_Ttitle{
+	width:20%;
+}
 
 
 

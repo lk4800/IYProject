@@ -32,20 +32,66 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		tbl_inyeon_fboard.fb_num=#{fb_num} and tbl_inyeon_user.email=(select email from TBL_INYEON_FBOARD where fb_num=#{fb_num})
 	</select>
 	
+	<select id="selectNBCont" resultType="nbcont">
+		select tbl_inyeon_nboard.nb_num,tbl_inyeon_nboard.email,tbl_inyeon_nboard.nb_title,tbl_inyeon_nboard.nb_cont,tbl_inyeon_nboard.nb_date,tbl_inyeon_nboard.nb_hit,
+		tbl_inyeon_user.name from tbl_inyeon_nboard,tbl_inyeon_user where 
+		tbl_inyeon_nboard.nb_num=#{nb_num} and tbl_inyeon_user.email=(select email from TBL_INYEON_NBOARD where nb_num=#{nb_num})
+	</select>
+	
+	<select id="selectPBCont" resultType="pbcont">
+		select tbl_inyeon_pboard.pb_num,tbl_inyeon_pboard.email,tbl_inyeon_pboard.pb_title,tbl_inyeon_pboard.pb_cont,tbl_inyeon_pboard.pb_date,tbl_inyeon_pboard.pb_hit,
+		tbl_inyeon_user.name from tbl_inyeon_pboard,tbl_inyeon_user where 
+		tbl_inyeon_pboard.pb_num=#{pb_num} and tbl_inyeon_user.email=(select email from TBL_INYEON_PBOARD where pb_num=#{pb_num})
+	</select>
+	
+	
+	
 	<update id="fbHitUp">
 		update tbl_inyeon_fboard set fb_hit=fb_hit+1 where fb_num=#{fb_num} 
 	</update>
 	
-	<select id="selectCont" resultType="fb">
+	<update id="pbHitUp">
+		update tbl_inyeon_pboard set pb_hit=pb_hit+1 where pb_num=#{pb_num} 
+	</update>
+	
+	<update id="nbHitUp">
+		update tbl_inyeon_nboard set nb_hit=nb_hit+1 where nb_num=#{nb_num} 
+	</update>
+	
+	<select id="selectFCont" resultType="fb">
 	 select * from tbl_inyeon_fboard where fb_num=#{fb_num}
+	</select>
+	
+	<select id="selectPCont" resultType="pb">
+	 select * from tbl_inyeon_pboard where pb_num=#{pb_num}
+	</select>
+	
+	<select id="selectNCont" resultType="nb">
+	 select * from tbl_inyeon_nboard where nb_num=#{nb_num}
 	</select>
 	
 	<update id="fb_update">
 		update tbl_inyeon_fboard set fb_title=#{fb_title},fb_cont=#{fb_cont},fb_img_url=#{fb_img_url} where fb_num=#{fb_num}
 	</update>
 	
+	<update id="pb_update">
+		update tbl_inyeon_pboard set pb_title=#{pb_title},pb_cont=#{pb_cont},pb_img_url=#{pb_img_url} where pb_num=#{pb_num}
+	</update>
+	
+	<update id="nb_update">
+		update tbl_inyeon_nboard set nb_title=#{nb_title},nb_cont=#{nb_cont},nb_img_url=#{nb_img_url} where nb_num=#{nb_num}
+	</update>
+	
 	<update id="fb_NoImgupdate">
 		update tbl_inyeon_fboard set fb_title=#{fb_title},fb_cont=#{fb_cont} where fb_num=#{fb_num}
+	</update>
+	
+	<update id="pb_NoImgupdate">
+		update tbl_inyeon_pboard set pb_title=#{pb_title},pb_cont=#{pb_cont} where pb_num=#{pb_num}
+	</update>
+	
+	<update id="nb_NoImgupdate">
+		update tbl_inyeon_nboard set nb_title=#{nb_title},nb_cont=#{nb_cont} where nb_num=#{nb_num}
 	</update>
 	
 	

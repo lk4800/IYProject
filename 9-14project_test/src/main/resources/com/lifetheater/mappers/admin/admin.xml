@@ -13,7 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="getUserList" resultType="ulv">
 		select * from
-		(select rowNum rNum,name,phone,membertype,reg_date,email
+		(select rowNum rNum,name,phone,membertype,reg_date,email,belong
 		from
 		(select * from tbl_inyeon_user
 		<where>
@@ -34,10 +34,41 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<update id="general_memberCh">
-		update tbl_inyeon_user set membertype=1 where email=#{email}
+		update tbl_inyeon_user set membertype=1,belong='' where email=#{email}
 	</update>
 	
 	<update id="show_memberCh">
-		update tbl_inyeon_user set membertype=2 where email=#{email}
+		update tbl_inyeon_user set membertype=2,belong=#{belong} where email=#{email}
 	</update>
+	<select id="getTotalTheaterCount" resultType="int">
+		select count(*) from theaterD
+	</select>
+	
+	<select id="getTheaterList" resultType="tdlvo">
+		select * from
+		(select rowNum rNum,td_no,email,td_title,td_viewdays,td_agegrade,td_check,td_signUp_date 
+		from
+		(select * from theaterD
+		<where>
+			<if test="condition==''">
+			</if>
+			<if test="condition=='name'">
+				td_title like concat('%'||#{keyword},'%')
+			</if>
+			<if test="condition=='email'">
+				email like concat('%'||#{keyword},'%')
+			</if>
+		</where>
+		order by td_signUp_date asc))
+		where rNum &gt;=#{startrow} and rNum &lt;=#{endrow} and td_check='1'
+	</select>
+	
+	<update id="tdCancle">
+		update theaterD set td_check='0' where td_no=#{td_no}
+	</update>
+	
+	<update id="tdApprove">
+		update theaterD set td_check='2' where td_no=#{td_no}
+	</update>
+	
 </mapper>

@@ -35,7 +35,7 @@
 		<jsp:include page="../../include/footer.jsp" />
 	<script>
 		var url;
-		
+		$("#board_fb_num").hide();
 
 	   
 		

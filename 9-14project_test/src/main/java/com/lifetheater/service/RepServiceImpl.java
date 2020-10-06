@@ -42,5 +42,16 @@ public class RepServiceImpl implements RepService {
 		this.repDao.fReplyDelete(freply);
 		
 	}
+
+	@Override
+	public List<FRepContVO> selectFreCont2(int fb_num) {
+		return this.repDao.selectFreCont2(fb_num);
+	}
+
+	@Override
+	public void frepUpdate(FReplyVO rvo) {
+		this.repDao.frepUpdate(rvo);
+		
+	}
 	
 }

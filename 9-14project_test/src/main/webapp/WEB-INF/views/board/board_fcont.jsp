@@ -51,8 +51,14 @@
 				<div id="board_cont_comment_option">
 						<h3 style="font-size: 17px; margin-right: 12px; display: inline-block;">댓글</h3>
 					<div id="board_cont_comment_tab">
-						<span id="board_cont_lastbtn" class="board_cont_Act" onclick="lastbtnClick();">등록순</span>
-						<span id="board_cont_firstbtn" onclick="firstbtnClick();">최신순</span>
+						<c:if test="${param.order eq 1}">
+							<a href="IY_board_fcont?order=1&fb_num=${fbCont.fb_num}" id="board_cont_lastbtn" class="board_cont_Act" onclick="lastbtnClick();">등록순</a>
+							<a href="IY_board_fcont?order=2&fb_num=${fbCont.fb_num}" id="board_cont_firstbtn" onclick="firstbtnClick();">최신순</a>
+						</c:if>
+						<c:if test="${param.order eq 2}">
+							<a href="IY_board_fcont?order=1&fb_num=${fbCont.fb_num}" id="board_cont_lastbtn" onclick="lastbtnClick();">등록순</a>
+							<a href="IY_board_fcont?order=2&fb_num=${fbCont.fb_num}" id="board_cont_firstbtn" class="board_cont_Act" onclick="firstbtnClick();">최신순</a>
+						</c:if>
 					</div>
 				</div>
 				<div id="board_cont_commentBox">
@@ -64,30 +70,6 @@
 						<c:forEach var="r" items="${frContList}">
 							<!-- /반복 해야대 -->
 							<c:if test="${empty r.fb_reply_reply_name}">
-								<li class="boad_cont_commentItem">
-									<div class="board_cont_commentArea">
-										<div class="board_cont_comment_nickBox">
-
-											<span class="board_cont_comment_nickname">${r.name}</span>
-										</div>
-										<div class="board_cont_comment_contBox">
-											<span class="board_cont_comment_content"><pre>${r.fb_reply_cont}</pre></span>
-										</div>
-										<div class="board_cont_comment_infoBox">
-											<span class="board_cont_comment_info_date">${r.fb_reply_date}</span>
-											<c:if test="${login.email eq r.email}">
-											<button role="button" class="board_cont_comment_info_button"
-												onclick="rep_rep_write('${r.name}','${r.fb_reply_cont}');">답글쓰기</button>
-												<button role="button" class="board_cont_comment_info_button"
-												onclick="rep_rep_delete('${r.freply_num}');">댓글삭제</button>
-												</c:if>
-											<!--  -->
-										</div>
-									</div>
-								</li>
-								<!-- /반복 해야대 -->
-							</c:if>
-							<c:if test="${!empty r.fb_reply_reply_name}">
 							<c:if test="${r.del_ck=='0'}">
 								<li class="boad_cont_commentItem">
 									<div class="board_cont_commentArea">
@@ -102,6 +84,51 @@
 								<c:if test="${r.del_ck=='1'}">
 								<li class="boad_cont_commentItem">
 									<div class="board_cont_commentArea">
+										<div id="rid${r.freply_num}">
+										<div class="board_cont_comment_nickBox">
+
+											<span class="board_cont_comment_nickname">${r.name}</span>
+										</div>
+										<div class="board_cont_comment_contBox">
+											<span class="board_cont_comment_content"><pre>${r.fb_reply_cont}</pre></span>
+										</div>
+										<div class="board_cont_comment_infoBox">
+											<span class="board_cont_comment_info_date">${r.fb_reply_date}</span>
+											<c:if test="${login.email eq r.email || login.membertype == '3'.charAt(0)}">
+											<button role="button" class="board_cont_comment_info_button"
+												onclick="rep_rep_write('${r.name}','${r.fb_reply_cont}');">답글쓰기</button>
+												<button role="button" class="board_cont_comment_info_button"
+												onclick="rep_rep_delete('${r.freply_num}');">댓글삭제</button>
+												<c:if test="${login.email eq r.email}">
+													<button role="button" class="board_cont_comment_info_button"
+													onclick="rep_rep_edit('${r.freply_num}','${r.fb_reply_cont}');">댓글수정</button>
+												</c:if>
+												</c:if>
+											<!--  -->
+										</div>
+									</div>
+									</div>
+								</li>
+								</c:if>
+								<!-- /반복 해야대 -->
+							</c:if>
+							<c:if test="${!empty r.fb_reply_reply_name}">
+							<c:if test="${r.del_ck=='0'}">
+								<li class="boad_cont_commentItem">
+									<div class="board_cont_commentArea">
+										<div class="board_cont_comment_contBox">
+											<span class="board_cont_comment_content"><pre>삭제된 댓글입니다.</pre></span>
+										</div>
+									</div>
+								</li>
+								</c:if>
+								
+							
+							
+								<c:if test="${r.del_ck=='1'}">
+								<li class="boad_cont_commentItem">
+									<div class="board_cont_commentArea">
+									<div id="rid${r.freply_num}">
 										<div class="board_cont_comment_nickBox">
 											<span class="board_cont_comment_nickname">${r.name}</span>
 										</div>
@@ -115,15 +142,20 @@
 										<div class="board_cont_comment_infoBox">
 											<span class="board_cont_comment_info_date">${r.fb_reply_date}</span>
 											
-											<c:if test="${login.email eq r.email}">
+											<c:if test="${login.email eq r.email || login.membertype == '3'.charAt(0)}">
 											<button role="button" class="board_cont_comment_info_button"
 												onclick="rep_rep_write('${r.name}','${r.fb_reply_cont}');">답글쓰기</button>
 												
 															<button role="button" class="board_cont_comment_info_button"
 												onclick="rep_rep_delete('${r.freply_num}');">댓글삭제</button>
+												<c:if test="${login.email eq r.email}">
+													<button role="button" class="board_cont_comment_info_button"
+													onclick="rep_rep_edit('${r.freply_num}','${r.fb_reply_cont}');">댓글수정</button>
+												</c:if>
 												</c:if>
 											<!--  -->
 										</div>
+									</div>
 									</div>
 								</li>
 								<!-- /반복 해야대 -->
@@ -188,7 +220,7 @@ $("#board_rep_arpa").hide();
 	
 	
 	function delcheck(){
-		var answer = confirm('게시물을 삭제 할것인가?');
+		var answer = confirm('게시물을 삭제 하겠습니까?');
 		var fb_num=getParameterByName("fb_num");
 		
 		const fboardinfo={
@@ -209,7 +241,6 @@ $("#board_rep_arpa").hide();
 			})
 		}
 	}
-	
 	console.log($("#board_cont_fb_num").html());
 	function repInsert(){//댓글 등록 시 실행
 		if($.trim($(".board_cont_comment_inbox_text").val()) == ""){
@@ -305,15 +336,48 @@ $("#board_rep_arpa").hide();
 		})
 	}
 	
-	
-	function lastbtnClick(){
-		$("#board_cont_lastbtn").attr('class','board_cont_Act');
-		$("#board_cont_firstbtn").removeClass();
+	function rep_rep_edit(rid,cont){ //댓글 수정버튼 클릭시 
+		var htmls = "";
+		htmls += "";
+		htmls += "<div class='board_cont_comment_commentWriter'>";
+		htmls += "<div class='board_cont_comment_inbox'> ";
+		htmls += "<span class='board_cont_comment_inboxName'>${login.name}</span>";
+		htmls += "<textarea placeholder='댓글을 남겨보세요' rows='1' id='editContent"+rid+"' class='board_cont_comment_inbox_text' onkeydown='resize(this)' ";
+		htmls += "style='overflow: hidden; overflow-wrap: break-word; height: 17px;'>"+cont+"</textarea></div>";
+		htmls += "<div class='board_cont_comment_register_box'> ";
+		htmls += "<span id='board_req_cancle' onclick='reload();'>취소</span> ";
+		htmls += "<span role='button' class='button btn_register is_active' onclick='repEdit("+rid+");'>수정</span></div>";
+		htmls += "<div class='clear'></div></div>";
+		$('#rid'+ rid).replaceWith(htmls);
+		$('#rid'+ rid + '#editContent').focus();
 	}
 	
-	function firstbtnClick(){
-		$("#board_cont_firstbtn").attr('class','board_cont_Act');
-		$("#board_cont_lastbtn").removeClass();
+	function reload(){
+		location.reload();
+	}
+	
+	function repEdit(rid){
+		var fb_reply_cont = $.trim($('#editContent'+rid).val());
+		
+		if (fb_reply_cont == '') {
+			alert('수정할 내용을 입력하세요');
+			$('#editContent'+rid).val('').focus();
+			return false;
+		}else{
+			const repInfo={
+					fb_reply_cont:fb_reply_cont,
+					freply_num:rid
+	    	};
+			 $.ajax({
+		    		type:"post",
+		    		url:"frep_update",
+		    		headers:{"Content-Type":"application/json"},
+		    		data:JSON.stringify(repInfo),
+		    		success:function(){
+		    			reload();
+		    		} 
+		    });
+		}
 	}
 	
 </script>

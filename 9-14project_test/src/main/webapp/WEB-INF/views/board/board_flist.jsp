@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <meta charset="UTF-8">
@@ -22,7 +23,9 @@
     			<h2 class="board_list_bt"><b>자유 게시판</b></h2>			
     		</div>	
     		<div>
+    				<c:if test="${login.membertype eq '1'.charAt(0)}">
             <button type="button" onclick="location='IY_board_fwrite'" class="board_write_btn">글쓰기</button>
+            </c:if>
     		</div>	
     		</div>
         	<div>
@@ -47,7 +50,7 @@
                       <div class="board_num">${fb.fb_num}</div>
                       <div class="board_tit"><a href="IY_board_fcont?fb_num=${fb.fb_num}">${fb.fb_title}</a></div>
                       <div class="board_writer">${fb.email}</div>
-                      <div class="board_date">${fb.fb_date}</div>
+                      <div class="board_date">${f:substring(fb.fb_date,0,10)}</div>
                       <div class="board_view">${fb.fb_hit}</div>
                     </div>
                     </c:forEach>

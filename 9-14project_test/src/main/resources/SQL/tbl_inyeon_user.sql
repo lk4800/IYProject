@@ -16,7 +16,7 @@ create table tbl_inyeon_user(--회원 정보 테이블
 );
 
 alter table tbl_inyeon_user add belong varchar2(10) null;
-
+update TBL_INYEON_USER set membertype='3' where email='administrator';
 insert into TBL_INYEON_USER(email,pw,name,phone,user_key,reg_date,membertype,point,login_way) 
 values ('administrator','4194d1706ed1f408d5e02d672777019f4d5385c766a8c6ca8acba3167d36a7b9','관리자',010-9999-9876,'hye_ah',sysdate,3,9999999,1)
 
@@ -59,7 +59,7 @@ admin(db) 만약에 이상태로 db넣으면
 
 
 
-
+select * from TBL_INYEON_USER order by 
 
 
 
