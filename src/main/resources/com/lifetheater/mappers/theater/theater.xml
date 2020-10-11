@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="theater">
+	<insert id="tdvo_insert">
+		insert into basictheater values(td_seq.nextval,#{email},#{td_title},#{td_viewdays},#{td_agegrade},#{td_actor},#{td_tinfo},#{td_detailposter},#{td_ticketinginfo},0,sysdate,#{td_location})
+		
+		
+		
+	</insert>
+	<!-- insert into tbl_inyeon_fboard values(fb_seq.nextval,#{fb_title},#{fb_cont},0,sysdate,#{fb_img_url},#{email}) -->	
+	<select id="tdvo_list">
+		
+	
+	</select>
+	<update id="tdvo_update">
+		
+	
+	</update>
+	<delete id="tdvo_delete">
+	
+	
+	</delete>
+
+</mapper>
+
+
+
+
+
+
+
+
+
